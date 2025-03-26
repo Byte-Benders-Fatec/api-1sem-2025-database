@@ -14,33 +14,18 @@ USE fapg;
 -- somente se esses documentos não estiverem associados a outras entidades (atividade ou tarefa).
 
 DELIMITER //
-CREATE TRIGGER trg_delete_unused_documents_on_project_delete
-AFTER DELETE ON project
+CREATE TRIGGER trg_delete_documents_on_project_delete
+BEFORE DELETE ON project
 FOR EACH ROW
 BEGIN
+  -- Primeiro remove os documentos vinculados
   DELETE FROM document
   WHERE id IN (
-    SELECT d.id
-    FROM document d
-    INNER JOIN project_document pd ON d.id = pd.document_id
-    WHERE pd.project_id = OLD.id
-
-    -- Garante que o documento NÃO esteja vinculado a nenhuma outra projeto
-    AND NOT EXISTS (
-      SELECT 1 FROM project_document pd2
-      WHERE pd2.document_id = d.id AND pd2.project_id <> OLD.id
-    )
-
-    -- Garante que o documento NÃO esteja vinculado a nenhuma atividade
-    AND NOT EXISTS (
-      SELECT 1 FROM activity_document ad WHERE ad.document_id = d.id
-    )
-
-    -- Garante que o documento NÃO esteja vinculado a nenhuma tarefa
-    AND NOT EXISTS (
-      SELECT 1 FROM task_document td WHERE td.document_id = d.id
-    )
+    SELECT document_id FROM project_document WHERE project_id = OLD.id
   );
+
+  -- Depois remove os vínculos (como não há mais ON DELETE CASCADE)
+  DELETE FROM project_document WHERE project_id = OLD.id;
 END;
 //
 DELIMITER ;
@@ -50,33 +35,18 @@ DELIMITER ;
 -- somente se esses documentos não estiverem associados a outras entidades (tarefa ou projeto).
 
 DELIMITER //
-CREATE TRIGGER trg_delete_unused_documents_on_activity_delete
-AFTER DELETE ON activity
+CREATE TRIGGER trg_delete_documents_on_activity_delete
+BEFORE DELETE ON activity
 FOR EACH ROW
 BEGIN
+  -- Primeiro remove os documentos vinculados
   DELETE FROM document
   WHERE id IN (
-    SELECT d.id
-    FROM document d
-    INNER JOIN activity_document ad ON d.id = ad.document_id
-    WHERE ad.activity_id = OLD.id
-
-    -- Garante que o documento NÃO esteja vinculado a nenhuma tarefa
-    AND NOT EXISTS (
-      SELECT 1 FROM task_document td WHERE td.document_id = d.id
-    )
-
-    -- Garante que o documento NÃO esteja vinculado a nenhum projeto
-    AND NOT EXISTS (
-      SELECT 1 FROM project_document pd WHERE pd.document_id = d.id
-    )
-
-    -- Garante que o documento NÃO esteja vinculado a outra atividade
-    AND NOT EXISTS (
-      SELECT 1 FROM activity_document ad2
-      WHERE ad2.document_id = d.id AND ad2.activity_id <> OLD.id
-    )
+    SELECT document_id FROM activity_document WHERE activity_id = OLD.id
   );
+
+  -- Depois remove os vínculos (como não há mais ON DELETE CASCADE)
+  DELETE FROM activity_document WHERE activity_id = OLD.id;
 END;
 //
 DELIMITER ;
@@ -86,33 +56,18 @@ DELIMITER ;
 -- somente se esses documentos não estiverem associados a outras entidades (atividade ou projeto).
 
 DELIMITER //
-CREATE TRIGGER trg_delete_unused_documents_on_task_delete
-AFTER DELETE ON task
+CREATE TRIGGER trg_delete_documents_on_task_delete
+BEFORE DELETE ON task
 FOR EACH ROW
 BEGIN
+  -- Primeiro remove os documentos vinculados
   DELETE FROM document
   WHERE id IN (
-    SELECT d.id
-    FROM document d
-    INNER JOIN task_document td ON d.id = td.document_id
-    WHERE td.task_id = OLD.id
-
-    -- Garante que o documento NÃO esteja vinculado a nenhuma outra tarefa
-    AND NOT EXISTS (
-      SELECT 1 FROM task_document td2
-      WHERE td2.document_id = d.id AND td2.task_id <> OLD.id
-    )
-
-    -- Garante que o documento NÃO esteja vinculado a nenhuma atividade
-    AND NOT EXISTS (
-      SELECT 1 FROM activity_document ad WHERE ad.document_id = d.id
-    )
-
-    -- Garante que o documento NÃO esteja vinculado a nenhum projeto
-    AND NOT EXISTS (
-      SELECT 1 FROM project_document pd WHERE pd.document_id = d.id
-    )
+    SELECT document_id FROM task_document WHERE task_id = OLD.id
   );
+
+  -- Depois remove os vínculos (como não há mais ON DELETE CASCADE)
+  DELETE FROM task_document WHERE task_id = OLD.id;
 END;
 //
 DELIMITER ;
