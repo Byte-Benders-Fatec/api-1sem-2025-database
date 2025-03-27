@@ -13,7 +13,7 @@ SET CHARACTER SET utf8mb4;
 -- Cada papel possui um Id único, nome, descrição e nível hierárquico.
 
 CREATE TABLE IF NOT EXISTS system_role (
-    id INT PRIMARY KEY COMMENT 'ID do papel global do sistema',
+    id INT PRIMARY KEY AUTO_INCREMENT COMMENT 'ID do papel global do sistema',
     name VARCHAR(50) NOT NULL UNIQUE COMMENT 'Nome do papel (ex: Admin, Viewer)',
     description VARCHAR(255) NOT NULL COMMENT 'Descrição do papel e sua função no sistema',
     level INT NOT NULL UNIQUE COMMENT 'Nível hierárquico do papel (valores maiores indicam maior acesso)'
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS system_role (
 -- Finalidade: Armazena os usuários do sistema, com suas credenciais, status de ativação e papel global.
 
 CREATE TABLE IF NOT EXISTS user (
-    id CHAR(36) PRIMARY KEY COMMENT 'UUID do usuário',
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID do usuário',
     name VARCHAR(100) NOT NULL COMMENT 'Nome completo do usuário',
     email VARCHAR(100) NOT NULL UNIQUE COMMENT 'E-mail utilizado para login',
     password_hash VARCHAR(255) NOT NULL COMMENT 'Senha criptografada do usuário',
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS user (
 -- Finalidade: Define as ações possíveis sobre os módulos do sistema (ex: visualizar, criar, editar, excluir).
 
 CREATE TABLE IF NOT EXISTS action (
-    id INT PRIMARY KEY COMMENT 'ID da ação',
+    id INT PRIMARY KEY AUTO_INCREMENT COMMENT 'ID da ação',
     name VARCHAR(50) NOT NULL UNIQUE COMMENT 'Nome da ação (ex: View, Create, Edit, Delete)'
 ) COMMENT = 'Ações possíveis aplicadas a módulos do sistema';
 
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS action (
 -- Finalidade: Define os módulos do sistema aos quais as permissões podem estar associadas (ex: projetos, atividades).
 
 CREATE TABLE IF NOT EXISTS module (
-    id INT PRIMARY KEY COMMENT 'ID do módulo',
+    id INT PRIMARY KEY AUTO_INCREMENT COMMENT 'ID do módulo',
     name VARCHAR(50) NOT NULL UNIQUE COMMENT 'Nome do módulo (ex: Project, Activity)'
 ) COMMENT = 'Módulos funcionais do sistema onde permissões são aplicadas';
 
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS module (
 -- Finalidade: Define as permissões disponíveis no sistema, compostas por um módulo e uma ação.
 
 CREATE TABLE IF NOT EXISTS permission (
-    id CHAR(36) PRIMARY KEY COMMENT 'UUID da permissão',
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da permissão',
     name VARCHAR(100) NOT NULL UNIQUE COMMENT 'Nome da permissão (ex: Projetos - Visualizar)',
     module_id INT NOT NULL COMMENT 'ID do módulo relacionado à permissão',
     action_id INT NOT NULL COMMENT 'ID da ação relacionada à permissão',
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS permission (
 -- Finalidade: Define os papéis atribuíveis a usuários dentro de projetos ou times.
 
 CREATE TABLE IF NOT EXISTS role (
-    id CHAR(36) PRIMARY KEY COMMENT 'UUID do papel de projeto/time',
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID do papel de projeto/time',
     name VARCHAR(50) NOT NULL UNIQUE COMMENT 'Nome do papel (ex: Coordenador, Colaborador)',
     description VARCHAR(255) NOT NULL COMMENT 'Descrição da função deste papel dentro de um projeto',
     is_default BOOLEAN NOT NULL DEFAULT FALSE COMMENT 'Indica se este é o papel padrão ao adicionar usuários',
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS role (
 -- Finalidade: Associa papéis de projeto a permissões específicas do sistema.
 
 CREATE TABLE IF NOT EXISTS role_permission (
-    id CHAR(36) PRIMARY KEY COMMENT 'UUID da associação entre papel e permissão',
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da associação entre papel e permissão',
     role_id CHAR(36) NOT NULL COMMENT 'UUID do papel atribuído',
     permission_id CHAR(36) NOT NULL COMMENT 'UUID da permissão concedida ao papel',
 
@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS role_permission (
 -- Permite controle de status (ativa/inativa), dados institucionais e rastreamento de alterações.
 
 CREATE TABLE IF NOT EXISTS funding_agency (
-    id CHAR(36) PRIMARY KEY COMMENT 'UUID da agência financiadora',
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da agência financiadora',
     name VARCHAR(255) NOT NULL UNIQUE COMMENT 'Nome completo da agência (ex: Conselho Nacional de Desenvolvimento Científico e Tecnológico)',
     acronym VARCHAR(30) COMMENT 'Sigla da agência (ex: CNPq)',
     cnpj VARCHAR(18) UNIQUE COMMENT 'CNPJ da agência financiadora (formato 00.000.000/0000-00)',
@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS funding_agency (
 -- Finalidade: Armazena arquivos binários (PDFs) diretamente no banco de dados, com controle de ciclo de vida.
 
 CREATE TABLE IF NOT EXISTS document (
-    id CHAR(36) PRIMARY KEY COMMENT 'UUID do documento',
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID do documento',
     name VARCHAR(255) NOT NULL COMMENT 'Nome original do arquivo',
     mime_type VARCHAR(100) NOT NULL DEFAULT 'application/pdf' COMMENT 'Tipo MIME do arquivo (geralmente application/pdf)',
     content MEDIUMBLOB NOT NULL COMMENT 'Conteúdo binário do arquivo PDF (até 16 MB)',
@@ -159,7 +159,7 @@ CREATE TABLE IF NOT EXISTS document (
 -- Finalidade: Armazena os projetos cadastrados na plataforma, com vínculo à agência financiadora, criador, status e orçamento.
 
 CREATE TABLE IF NOT EXISTS project (
-    id CHAR(36) PRIMARY KEY COMMENT 'UUID do projeto',
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID do projeto',
     name VARCHAR(255) NOT NULL COMMENT 'Nome do projeto',
     code VARCHAR(50) UNIQUE COMMENT 'Código interno ou institucional do projeto',
     description TEXT COMMENT 'Descrição detalhada do projeto',
@@ -196,7 +196,7 @@ CREATE TABLE IF NOT EXISTS project (
 -- Permite o vínculo de múltiplos documentos a um projeto, com controle de exclusão lógica (soft delete).
 
 CREATE TABLE IF NOT EXISTS project_document (
-    id CHAR(36) PRIMARY KEY COMMENT 'UUID da associação entre projeto e documento',
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da associação entre projeto e documento',
     project_id CHAR(36) NOT NULL COMMENT 'UUID do projeto relacionado',
     document_id CHAR(36) NOT NULL COMMENT 'UUID do documento associado ao projeto',
 
@@ -215,7 +215,7 @@ CREATE TABLE IF NOT EXISTS project_document (
 -- Finalidade: Define as áreas temáticas utilizadas para classificar os projetos da plataforma.
 
 CREATE TABLE IF NOT EXISTS area (
-    id CHAR(36) PRIMARY KEY COMMENT 'UUID da área temática',
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da área temática',
     name VARCHAR(100) NOT NULL UNIQUE COMMENT 'Nome da área (ex: Aeroespacial, Educação)',
     description VARCHAR(255) COMMENT 'Descrição adicional da área, se necessário',
 
@@ -230,7 +230,7 @@ CREATE TABLE IF NOT EXISTS area (
 -- Finalidade: Relaciona projetos a uma ou mais áreas temáticas, permitindo classificação múltipla dos projetos.
 
 CREATE TABLE IF NOT EXISTS project_area (
-    id CHAR(36) PRIMARY KEY COMMENT 'UUID da associação entre projeto e área',
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da associação entre projeto e área',
     project_id CHAR(36) NOT NULL COMMENT 'UUID do projeto relacionado',
     area_id CHAR(36) NOT NULL COMMENT 'UUID da área atribuída ao projeto',
 
@@ -251,7 +251,7 @@ CREATE TABLE IF NOT EXISTS project_area (
 -- Permite controle de exclusão lógica e atualização de papel com rastreabilidade.
 
 CREATE TABLE IF NOT EXISTS user_project (
-    id CHAR(36) PRIMARY KEY COMMENT 'UUID da associação entre usuário e projeto',
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da associação entre usuário e projeto',
     user_id CHAR(36) NOT NULL COMMENT 'UUID do usuário participante do projeto',
     project_id CHAR(36) NOT NULL COMMENT 'UUID do projeto',
     role_id CHAR(36) NOT NULL COMMENT 'UUID do papel do usuário neste projeto',
@@ -274,7 +274,7 @@ CREATE TABLE IF NOT EXISTS user_project (
 -- Utilizados para controlar quais pessoas podem ser atribuídas a projetos específicos.
 
 CREATE TABLE IF NOT EXISTS team (
-    id CHAR(36) PRIMARY KEY COMMENT 'UUID do time ou grupo',
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID do time ou grupo',
     name VARCHAR(100) NOT NULL UNIQUE COMMENT 'Nome do time',
     description VARCHAR(255) COMMENT 'Descrição da finalidade ou escopo do time',
     is_active BOOLEAN NOT NULL DEFAULT TRUE COMMENT 'Indica se o time está ativo no sistema',
@@ -291,7 +291,7 @@ CREATE TABLE IF NOT EXISTS team (
 -- Permite que um mesmo usuário esteja em múltiplos times.
 
 CREATE TABLE IF NOT EXISTS user_team (
-    id CHAR(36) PRIMARY KEY COMMENT 'UUID da associação entre usuário e time',
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da associação entre usuário e time',
     user_id CHAR(36) NOT NULL COMMENT 'UUID do usuário participante',
     team_id CHAR(36) NOT NULL COMMENT 'UUID do time associado',
 
@@ -311,7 +311,7 @@ CREATE TABLE IF NOT EXISTS user_team (
 -- Define quem pode ser selecionado para participar de um projeto.
 
 CREATE TABLE IF NOT EXISTS project_team (
-    id CHAR(36) PRIMARY KEY COMMENT 'UUID da associação entre projeto e time',
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da associação entre projeto e time',
     project_id CHAR(36) NOT NULL COMMENT 'UUID do projeto',
     team_id CHAR(36) NOT NULL COMMENT 'UUID do time autorizado',
 
@@ -330,7 +330,7 @@ CREATE TABLE IF NOT EXISTS project_team (
 -- Finalidade: Representa uma atividade dentro de um projeto, com planejamento de execução, responsáveis e orçamento alocado.
 
 CREATE TABLE IF NOT EXISTS activity (
-    id CHAR(36) PRIMARY KEY COMMENT 'UUID da atividade',
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da atividade',
     
     project_id CHAR(36) NOT NULL COMMENT 'Projeto ao qual a atividade está vinculada',
     name VARCHAR(255) NOT NULL COMMENT 'Título da atividade',
@@ -360,7 +360,7 @@ CREATE TABLE IF NOT EXISTS activity (
 -- Permite múltiplos responsáveis por atividade, bem como atividades sem responsáveis definidos (atividade aberta).
 
 CREATE TABLE IF NOT EXISTS activity_user (
-    id CHAR(36) PRIMARY KEY,
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
     activity_id CHAR(36) NOT NULL,
     user_id CHAR(36) NOT NULL,
     
@@ -382,7 +382,7 @@ CREATE TABLE IF NOT EXISTS activity_user (
 -- Permite o rastreio detalhado do trabalho realizado dentro das atividades do projeto.
 
 CREATE TABLE IF NOT EXISTS task (
-    id CHAR(36) PRIMARY KEY COMMENT 'UUID da tarefa',
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da tarefa',
 
     activity_id CHAR(36) NOT NULL COMMENT 'UUID da atividade associada à tarefa',
     user_id CHAR(36) DEFAULT NULL COMMENT 'Usuário responsável pela tarefa (pode ser nulo se o usuário for removido)',
@@ -408,7 +408,7 @@ CREATE TABLE IF NOT EXISTS task (
 -- Permite o anexo de arquivos que dão suporte à execução da atividade como um todo (ex: cronogramas, instruções, modelos).
 
 CREATE TABLE IF NOT EXISTS activity_document (
-    id CHAR(36) PRIMARY KEY COMMENT 'UUID da associação entre atividade e documento',
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da associação entre atividade e documento',
     activity_id CHAR(36) NOT NULL COMMENT 'UUID da atividade associada',
     document_id CHAR(36) NOT NULL COMMENT 'UUID do documento vinculado',
 
@@ -428,7 +428,7 @@ CREATE TABLE IF NOT EXISTS activity_document (
 -- Os documentos podem conter evidências, relatórios, arquivos gerados pela execução da tarefa.
 
 CREATE TABLE IF NOT EXISTS task_document (
-    id CHAR(36) PRIMARY KEY COMMENT 'UUID da associação entre tarefa e documento',
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da associação entre tarefa e documento',
     task_id CHAR(36) NOT NULL COMMENT 'UUID da tarefa associada',
     document_id CHAR(36) NOT NULL COMMENT 'UUID do documento vinculado',
 
