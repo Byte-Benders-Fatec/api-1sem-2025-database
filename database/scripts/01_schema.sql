@@ -218,7 +218,9 @@ CREATE TABLE IF NOT EXISTS area (
     id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da área temática',
     name VARCHAR(100) NOT NULL UNIQUE COMMENT 'Nome da área (ex: Aeroespacial, Educação)',
     description VARCHAR(255) COMMENT 'Descrição adicional da área, se necessário',
-
+	
+    is_active BOOLEAN NOT NULL DEFAULT TRUE COMMENT 'Indica se a área está ativa no sistema',
+    
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Data de criação da área',
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Data da última atualização da área',
     deleted_at DATETIME DEFAULT NULL COMMENT 'Data de exclusão lógica da área'
