@@ -125,9 +125,9 @@ CREATE TABLE IF NOT EXISTS role_permission (
 CREATE TABLE IF NOT EXISTS funding_agency (
     id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da agência financiadora',
     name VARCHAR(255) NOT NULL UNIQUE COMMENT 'Nome completo da agência (ex: Conselho Nacional de Desenvolvimento Científico e Tecnológico)',
-    acronym VARCHAR(30) COMMENT 'Sigla da agência (ex: CNPq)',
-    cnpj VARCHAR(18) UNIQUE COMMENT 'CNPJ da agência financiadora (formato 00.000.000/0000-00)',
-    website VARCHAR(255) COMMENT 'Site oficial da agência',
+    acronym VARCHAR(30) NOT NULL UNIQUE COMMENT 'Sigla da agência (ex: CNPq)',
+    cnpj VARCHAR(18) NOT NULL UNIQUE COMMENT 'CNPJ da agência financiadora (formato 00.000.000/0000-00)',
+    website VARCHAR(255) DEFAULT NULL COMMENT 'Site oficial da agência',
     is_active BOOLEAN NOT NULL DEFAULT TRUE COMMENT 'Define se a agência está ativa para uso no sistema',
 
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Data de criação do registro',
@@ -336,15 +336,15 @@ CREATE TABLE IF NOT EXISTS activity (
     
     project_id CHAR(36) NOT NULL COMMENT 'Projeto ao qual a atividade está vinculada',
     name VARCHAR(255) NOT NULL COMMENT 'Título da atividade',
-    description TEXT COMMENT 'Descrição detalhada da atividade',
+    description TEXT DEFAULT NULL COMMENT 'Descrição detalhada da atividade',
 
     status ENUM('Não iniciada', 'Em andamento', 'Concluída', 'Cancelada') DEFAULT 'Não iniciada' COMMENT 'Status atual da atividade',
 
     allocated_budget DECIMAL(12,2) DEFAULT 0.00 COMMENT 'Valor em reais reservado para esta atividade dentro do orçamento do projeto',
-    start_date DATE COMMENT 'Data de início planejada da atividade',
-    end_date DATE COMMENT 'Data de término planejada da atividade',
+    start_date DATE NOT NULL COMMENT 'Data de início planejada da atividade',
+    end_date DATE NOT NULL COMMENT 'Data de término planejada da atividade',
 
-    created_by CHAR(36) COMMENT 'Usuário que criou a atividade',
+    created_by CHAR(36) DEFAULT NULL COMMENT 'Usuário que criou a atividade',
     is_active BOOLEAN NOT NULL DEFAULT TRUE COMMENT 'Indica se a atividade está ativa no sistema',
 
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Data de criação da atividade',
