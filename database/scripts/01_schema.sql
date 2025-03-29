@@ -161,7 +161,7 @@ CREATE TABLE IF NOT EXISTS document (
 CREATE TABLE IF NOT EXISTS project (
     id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID do projeto',
     name VARCHAR(255) NOT NULL COMMENT 'Nome do projeto',
-    code VARCHAR(50) UNIQUE COMMENT 'Código interno ou institucional do projeto',
+    code VARCHAR(50) NOT NULL UNIQUE COMMENT 'Código interno ou institucional do projeto',
     description TEXT COMMENT 'Descrição detalhada do projeto',
 
     status ENUM(
@@ -173,13 +173,13 @@ CREATE TABLE IF NOT EXISTS project (
     ) NOT NULL DEFAULT 'Planejado' COMMENT 'Status atual do projeto no sistema',
 
     is_active BOOLEAN NOT NULL DEFAULT TRUE COMMENT 'Define se o projeto está ativo na plataforma',
-    start_date DATE COMMENT 'Data de início planejada ou real do projeto',
-    end_date DATE COMMENT 'Data de término prevista ou real do projeto',
+    start_date DATE NOT NULL COMMENT 'Data de início planejada ou real do projeto',
+    end_date DATE NOT NULL COMMENT 'Data de término prevista ou real do projeto',
 
     budget DECIMAL(12,2) NOT NULL DEFAULT 0.00 COMMENT 'Orçamento total disponível para o projeto (em reais)',
 
-    funding_agency_id CHAR(36) COMMENT 'UUID da agência financiadora do projeto',
-    created_by_id CHAR(36) COMMENT 'UUID do usuário responsável pela criação do projeto',
+    funding_agency_id CHAR(36) DEFAULT NULL COMMENT 'UUID da agência financiadora do projeto',
+    created_by_id CHAR(36) DEFAULT NULL COMMENT 'UUID do usuário responsável pela criação do projeto',
 
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Data de criação do projeto',
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Última modificação do projeto',
@@ -390,9 +390,9 @@ CREATE TABLE IF NOT EXISTS task (
     user_id CHAR(36) DEFAULT NULL COMMENT 'Usuário responsável pela tarefa (pode ser nulo se o usuário for removido)',
     
     title VARCHAR(255) NOT NULL COMMENT 'Título da tarefa',
-    description TEXT COMMENT 'Descrição detalhada da tarefa',
+    description TEXT DEFAULT NULL COMMENT 'Descrição detalhada da tarefa',
     
-    time_spent_minutes INT COMMENT 'Tempo em minutos dedicado à tarefa',
+    time_spent_minutes INT DEFAULT 0 COMMENT 'Tempo em minutos dedicado à tarefa',
     cost DECIMAL(12,2) DEFAULT 0.00 COMMENT 'Custo monetário associado à tarefa (se aplicável)',
     
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Data de criação da tarefa',
