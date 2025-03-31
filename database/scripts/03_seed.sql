@@ -22,37 +22,37 @@ INSERT INTO system_role (id, name, description, level) VALUES
 -- A associação com system_role define o papel global do usuário na plataforma.
 
 INSERT INTO user (id, name, email, password_hash, is_active, system_role_id) VALUES
-(UUID(), 'Joniel Rodrigues', 'joniel@fapg.org', 'hashed_password_1', TRUE, 1), -- Super Admin 
-(UUID(), 'João Silva', 'joao@fapg.org', 'hashed_password_2', TRUE, 1), -- Super Admin
-(UUID(), 'Carlos Santos', 'carlos@fapg.org', 'hashed_password_3', TRUE, 4), -- Viewer
-(UUID(), 'Caio Vinicius', 'caio@fapg.org', 'hashed_password_4', TRUE, 4); -- Viewer
+(UUID(), 'Joniel Rodrigues', 'joniel@fapg.org.br', 'hashed_password_1', TRUE, 1), -- Super Admin 
+(UUID(), 'João Silva', 'joao@fapg.org.br', 'hashed_password_2', TRUE, 1), -- Super Admin
+(UUID(), 'Carlos Santos', 'carlos@fapg.org.br', 'hashed_password_3', TRUE, 4), -- Viewer
+(UUID(), 'Caio Vinicius', 'caio@fapg.org.br', 'hashed_password_4', TRUE, 4); -- Viewer
 
 INSERT INTO user (id, name, email, password_hash, is_active, system_role_id) VALUES
-(UUID(), 'Ana Lima', 'ana@fapg.org', 'hashed_password_5', TRUE, 2), -- Admin
-(UUID(), 'Ângela Teixeira', 'angela.teixeira@fapg.org', 'hashed_password_6', TRUE, 2), -- Admin
-(UUID(), 'Aline Laura Gonçalves', 'aline.laura.goncalves@fapg.org', 'hashed_password_7', TRUE, 2), -- Admin
-(UUID(), 'Amanda Beatriz Nascimento', 'amanda.beatriz.nascimento@fapg.org', 'hashed_password_8', TRUE, 3), -- User
-(UUID(), 'Adriana Souza', 'adriana.souza@fapg.org', 'hashed_password_9', TRUE, 3), -- User
-(UUID(), 'Alice Júlia Oliveira', 'alice.julia.oliveira@fapg.org', 'hashed_password_10', TRUE, 3), -- User
-(UUID(), 'Antônia Silveira', 'antonia.silveira@fapg.org', 'hashed_password_11', TRUE, 3); -- User
+(UUID(), 'Ana Lima', 'ana@fapg.org.br', 'hashed_password_5', TRUE, 2), -- Admin
+(UUID(), 'Ângela Teixeira', 'angela.teixeira@fapg.org.br', 'hashed_password_6', TRUE, 2), -- Admin
+(UUID(), 'Aline Laura Gonçalves', 'aline.laura.goncalves@fapg.org.br', 'hashed_password_7', TRUE, 2), -- Admin
+(UUID(), 'Amanda Beatriz Nascimento', 'amanda.beatriz.nascimento@fapg.org.br', 'hashed_password_8', TRUE, 3), -- User
+(UUID(), 'Adriana Souza', 'adriana.souza@fapg.org.br', 'hashed_password_9', TRUE, 3), -- User
+(UUID(), 'Alice Júlia Oliveira', 'alice.julia.oliveira@fapg.org.br', 'hashed_password_10', TRUE, 3), -- User
+(UUID(), 'Antônia Silveira', 'antonia.silveira@fapg.org.br', 'hashed_password_11', TRUE, 3); -- User
 
 INSERT INTO user (id, name, email, password_hash, is_active, system_role_id) VALUES
-(UUID(), 'Pedro Rocha', 'pedro@fapg.org', 'hashed_password_12', TRUE, 2), -- Admin
-(UUID(), 'Paola Ramos', 'paola.ramos@fapg.org', 'hashed_password_13', TRUE, 2), -- Admin
-(UUID(), 'Paulo Alves', 'paulo.alves@fapg.org', 'hashed_password_14', TRUE, 2), -- Admin
-(UUID(), 'Patrício Peixoto', 'patricio.peixoto@fapg.org', 'hashed_password_15', TRUE, 3), -- User
-(UUID(), 'Pâmela Pinto', 'pamela.pinto@fapg.org', 'hashed_password_16', TRUE, 3), -- User
-(UUID(), 'Priscila Sales', 'priscila.sales@fapg.org', 'hashed_password_17', TRUE, 3), -- User
-(UUID(), 'Pietro Viana', 'pietro.viana@fapg.org', 'hashed_password_18', TRUE, 3); -- User
+(UUID(), 'Pedro Rocha', 'pedro@fapg.org.br', 'hashed_password_12', TRUE, 2), -- Admin
+(UUID(), 'Paola Ramos', 'paola.ramos@fapg.org.br', 'hashed_password_13', TRUE, 2), -- Admin
+(UUID(), 'Paulo Alves', 'paulo.alves@fapg.org.br', 'hashed_password_14', TRUE, 2), -- Admin
+(UUID(), 'Patrício Peixoto', 'patricio.peixoto@fapg.org.br', 'hashed_password_15', TRUE, 3), -- User
+(UUID(), 'Pâmela Pinto', 'pamela.pinto@fapg.org.br', 'hashed_password_16', TRUE, 3), -- User
+(UUID(), 'Priscila Sales', 'priscila.sales@fapg.org.br', 'hashed_password_17', TRUE, 3), -- User
+(UUID(), 'Pietro Viana', 'pietro.viana@fapg.org.br', 'hashed_password_18', TRUE, 3); -- User
 
 INSERT INTO user (id, name, email, password_hash, is_active, system_role_id) VALUES
-(UUID(), 'Maria Oliveira', 'maria@fapg.org', 'hashed_password_19', TRUE, 2), -- Admin
-(UUID(), 'Mônica da Paz', 'monica.da.paz@fapg.org', 'hashed_password_20', TRUE, 2), -- Admin
-(UUID(), 'Manuela Cecília Teixeira', 'manuela.cecilia.teixeira@fapg.org', 'hashed_password_21', TRUE, 2), -- Admin
-(UUID(), 'Marcelo Peixoto', 'marcelo.peixoto@fapg.org', 'hashed_password_22', TRUE, 3), -- User
-(UUID(), 'Matheus Nascimento', 'matheus.nascimento@fapg.org', 'hashed_password_23', TRUE, 3), -- User
-(UUID(), 'Milena Duarte', 'milena.duarte@fapg.org', 'hashed_password_24', TRUE, 3), -- User
-(UUID(), 'Marina Rezende', 'marina.rezende@fapg.org', 'hashed_password_25', TRUE, 3); -- User
+(UUID(), 'Maria Oliveira', 'maria@fapg.org.br', 'hashed_password_19', TRUE, 2), -- Admin
+(UUID(), 'Mônica da Paz', 'monica.da.paz@fapg.org.br', 'hashed_password_20', TRUE, 2), -- Admin
+(UUID(), 'Manuela Cecília Teixeira', 'manuela.cecilia.teixeira@fapg.org.br', 'hashed_password_21', TRUE, 2), -- Admin
+(UUID(), 'Marcelo Peixoto', 'marcelo.peixoto@fapg.org.br', 'hashed_password_22', TRUE, 3), -- User
+(UUID(), 'Matheus Nascimento', 'matheus.nascimento@fapg.org.br', 'hashed_password_23', TRUE, 3), -- User
+(UUID(), 'Milena Duarte', 'milena.duarte@fapg.org.br', 'hashed_password_24', TRUE, 3), -- User
+(UUID(), 'Marina Rezende', 'marina.rezende@fapg.org.br', 'hashed_password_25', TRUE, 3); -- User
 
 
 
