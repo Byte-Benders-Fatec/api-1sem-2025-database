@@ -442,3 +442,22 @@ CREATE TABLE IF NOT EXISTS task_document (
 
     UNIQUE KEY unique_task_document (task_id, document_id)
 ) COMMENT = 'Associação de documentos a uma tarefa realizada dentro de uma atividade';
+
+
+
+-- Tabela: two_fa_code
+-- Finalidade: Armazena códigos de verificação temporários para autenticação em duas etapas via e-mail.
+-- Utilizada para validar acessos com código de 6 dígitos enviado após login com credenciais válidas.
+
+CREATE TABLE IF NOT EXISTS two_fa_code (
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID do código de verificação gerado',
+    user_id CHAR(36) NOT NULL COMMENT 'UUID do usuário que solicitou o código de verificação',
+    code_hash VARCHAR(255) NOT NULL COMMENT 'Hash seguro do código de 6 dígitos enviado ao e-mail',
+    attempts INT DEFAULT 0 COMMENT 'Número de tentativas realizadas com esse código',
+    max_attempts INT DEFAULT 5 COMMENT 'Número máximo de tentativas permitidas',
+    status ENUM('pending', 'verified', 'denied') DEFAULT 'pending' COMMENT 'Estado da verificação: pendente, verificado ou negado',
+    expires_at DATETIME NOT NULL COMMENT 'Data e hora de expiração do código',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Data de criação do código',
+
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE
+) COMMENT = 'Armazena códigos de verificação temporários para autenticação em dois fatores via e-mail';
