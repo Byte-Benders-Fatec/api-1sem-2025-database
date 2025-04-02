@@ -219,6 +219,21 @@ VALUES
 
 
 
+-- Seed: institution
+-- Instituições de ensino e pesquisa beneficiadas por projetos
+
+INSERT INTO institution (id, name, acronym, cnpj, website)
+VALUES
+  (UUID(), 'Não aplicável', 'N/A', '00.000.000/0001-00', 'N/A'),
+  (UUID(), 'Fatec São José dos Campos – Prof. Jessen Vidal', 'FATEC-SJC', '62.823.257/0146-65', 'https://sjc.fatec.sp.gov.br'),
+  (UUID(), 'Fatec Jacareí – Professor Francisco de Moura', 'FATEC-JACAREÍ', '62.823.257/0258-61', 'https://fatecjacarei.cps.sp.gov.br'),
+  (UUID(), 'Fatec Taubaté', 'FATEC-TAUBATÉ', '62.823.257/0251-95', 'https://fatectaubate.cps.sp.gov.br'),
+  (UUID(), 'Fatec Guaratinguetá – Prof. João Mod', 'FATEC-GUARATINGUETÁ', '62.823.257/0106-78', 'https://www.fatecguaratingueta.edu.br'),
+  (UUID(), 'Fatec Mogi das Cruzes', 'FATEC-MOGI', '62.823.257/0184-90', 'https://www.fatecmogidascruzes.com.br'),
+  (UUID(), 'Fatec São Paulo', 'FATEC-SP', '62.823.257/0015-04', 'https://www.fatecsp.br');
+
+
+
 -- Seed: area
 -- Áreas temáticas utilizadas para classificar os projetos cadastrados na plataforma.
 -- Essa categorização permite filtrar, agrupar e analisar os projetos por domínio de conhecimento ou aplicação.
