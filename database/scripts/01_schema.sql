@@ -137,6 +137,25 @@ CREATE TABLE IF NOT EXISTS funding_agency (
 
 
 
+-- Tabela: institution
+-- Finalidade: Armazena instituições beneficiadas pelos projetos, como universidades e faculdades.
+-- Permite controle de status (ativa/inativa), dados institucionais e rastreamento de alterações.
+
+CREATE TABLE IF NOT EXISTS institution (
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da instituição',
+    name VARCHAR(255) NOT NULL UNIQUE COMMENT 'Nome completo da instituição (ex: Faculdade de Tecnologia de São José dos Campos)',
+    acronym VARCHAR(30) NOT NULL UNIQUE COMMENT 'Sigla da instituição (ex: FATEC-SJC)',
+    cnpj VARCHAR(18) NOT NULL UNIQUE COMMENT 'CNPJ da instituição (formato 00.000.000/0000-00)',
+    website VARCHAR(255) DEFAULT NULL COMMENT 'Site oficial da instituição',
+    is_active BOOLEAN NOT NULL DEFAULT TRUE COMMENT 'Define se a instituição está ativa para uso no sistema',
+
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Data de criação do registro',
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Data da última modificação',
+    deleted_at DATETIME DEFAULT NULL COMMENT 'Data de exclusão lógica (soft delete)'
+) COMMENT = 'Instituições beneficiadas pelos projetos da plataforma, como universidades e faculdades';
+
+
+
 -- Tabela: document
 -- Finalidade: Armazena arquivos binários (PDFs) diretamente no banco de dados, com controle de ciclo de vida.
 
