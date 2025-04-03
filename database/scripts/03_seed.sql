@@ -276,159 +276,189 @@ INSERT INTO document (id, name, mime_type, content)
 VALUES (UUID(), 'documento_PRJ-0010_Sebrae.pdf', 'application/pdf', LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/documento_PRJ-0010_Sebrae.pdf'));
 
 
--- Seed: project
--- Projetos institucionais de exemplo, vinculados a diferentes agências financiadoras e com orçamentos variados.
--- Os registros incluem status diversos, datas coerentes com o ciclo de vida e referência ao usuário criador.
--- A associação com a agência é feita via subquery com base no nome da funding_agency.
--- O campo created_by é recuperado pelo nome, garantindo associação direta ao usuário específico.
 
-INSERT INTO project (id, name, code, description, status, is_active, start_date, end_date, budget, funding_agency_id, created_by_id)
+-- Seed: project
+-- Projetos institucionais de exemplo, vinculados a diferentes agências financiadoras, instituições de ensino e áreas temáticas.
+-- Os registros incluem status diversos, datas coerentes com o ciclo de vida e referência ao usuário criador e responsável pelo projeto.
+-- A associação com outras entidades é feita via subqueries com base em valores únicos como nome ou sigla/acrônimo.
+
+INSERT INTO project (id, name, code, description, area_id, status, is_active, start_date, end_date, budget, institution_id, funding_agency_id, created_by_id, responsible_user_id)
 VALUES (
   UUID(),
   'Projeto Exemplo 1',
   'PRJ-0001',
   'Projeto gerado automaticamente para fins de teste e validação.',
+  (SELECT id FROM area WHERE name = 'Aeroespacial'),
   'Planejado',
   TRUE,
   '2024-09-01',
   '2025-08-31',
   100000.00,
+  (SELECT id FROM institution WHERE acronym = 'FATEC-SJC'),
   (SELECT id FROM funding_agency WHERE acronym = 'CAPES'),
+  (SELECT id FROM user WHERE name = 'Ana Lima' LIMIT 1),
   (SELECT id FROM user WHERE name = 'Ana Lima' LIMIT 1)
 );
 
-INSERT INTO project (id, name, code, description, status, is_active, start_date, end_date, budget, funding_agency_id, created_by_id)
+INSERT INTO project (id, name, code, description, area_id, status, is_active, start_date, end_date, budget, institution_id, funding_agency_id, created_by_id, responsible_user_id)
 VALUES (
   UUID(),
   'Projeto Exemplo 2',
   'PRJ-0002',
   'Projeto gerado automaticamente para fins de teste e validação.',
+  (SELECT id FROM area WHERE name = 'Aeroespacial'),
   'Em andamento',
   TRUE,
   '2024-01-15',
   '2024-12-15',
   85000.00,
+  (SELECT id FROM institution WHERE acronym = 'FATEC-SJC'),
   (SELECT id FROM funding_agency WHERE acronym = 'CAPES'),
+  (SELECT id FROM user WHERE name = 'Pedro Rocha' LIMIT 1),
   (SELECT id FROM user WHERE name = 'Pedro Rocha' LIMIT 1)
 );
 
-INSERT INTO project (id, name, code, description, status, is_active, start_date, end_date, budget, funding_agency_id, created_by_id)
+INSERT INTO project (id, name, code, description, area_id, status, is_active, start_date, end_date, budget, institution_id, funding_agency_id, created_by_id, responsible_user_id)
 VALUES (
   UUID(),
   'Projeto Exemplo 3',
   'PRJ-0003',
   'Projeto gerado automaticamente para fins de teste e validação.',
+  (SELECT id FROM area WHERE name = 'Aeroespacial'),
   'Suspenso',
   TRUE,
   '2023-01-01',
   '2024-12-31',
   120000.00,
+  (SELECT id FROM institution WHERE acronym = 'FATEC-SJC'),
   (SELECT id FROM funding_agency WHERE acronym = 'FAPESP'),
+  (SELECT id FROM user WHERE name = 'Ana Lima' LIMIT 1),
   (SELECT id FROM user WHERE name = 'Ana Lima' LIMIT 1)
 );
 
-INSERT INTO project (id, name, code, description, status, is_active, start_date, end_date, budget, funding_agency_id, created_by_id)
+INSERT INTO project (id, name, code, description, area_id, status, is_active, start_date, end_date, budget, institution_id, funding_agency_id, created_by_id, responsible_user_id)
 VALUES (
   UUID(),
   'Projeto Exemplo 4',
   'PRJ-0004',
   'Projeto gerado automaticamente para fins de teste e validação.',
+  (SELECT id FROM area WHERE name = 'Aeroespacial'),
   'Cancelado',
   TRUE,
   '2023-06-01',
   '2024-05-31',
   0.00,
+  (SELECT id FROM institution WHERE acronym = 'FATEC-SJC'),
   (SELECT id FROM funding_agency WHERE acronym = 'FAPESP'),
+  (SELECT id FROM user WHERE name = 'Pedro Rocha' LIMIT 1),
   (SELECT id FROM user WHERE name = 'Pedro Rocha' LIMIT 1)
 );
 
-INSERT INTO project (id, name, code, description, status, is_active, start_date, end_date, budget, funding_agency_id, created_by_id)
+INSERT INTO project (id, name, code, description, area_id, status, is_active, start_date, end_date, budget, institution_id, funding_agency_id, created_by_id, responsible_user_id)
 VALUES (
   UUID(),
   'Projeto Exemplo 5',
   'PRJ-0005',
   'Projeto gerado automaticamente para fins de teste e validação.',
+  (SELECT id FROM area WHERE name = 'Aeroespacial'),
   'Concluído',
   TRUE,
   '2022-01-01',
   '2023-12-31',
   70000.00,
+  (SELECT id FROM institution WHERE acronym = 'FATEC-SJC'),
   (SELECT id FROM funding_agency WHERE acronym = 'CNPq'),
+  (SELECT id FROM user WHERE name = 'Maria Oliveira' LIMIT 1),
   (SELECT id FROM user WHERE name = 'Maria Oliveira' LIMIT 1)
 );
 
-INSERT INTO project (id, name, code, description, status, is_active, start_date, end_date, budget, funding_agency_id, created_by_id)
+INSERT INTO project (id, name, code, description, area_id, status, is_active, start_date, end_date, budget, institution_id, funding_agency_id, created_by_id, responsible_user_id)
 VALUES (
   UUID(),
   'Projeto Exemplo 6',
   'PRJ-0006',
   'Projeto gerado automaticamente para fins de teste e validação.',
+  (SELECT id FROM area WHERE name = 'Aeroespacial'),
   'Em andamento',
   TRUE,
   '2024-03-01',
   '2025-02-28',
   95000.00,
+  (SELECT id FROM institution WHERE acronym = 'FATEC-SJC'),
   (SELECT id FROM funding_agency WHERE acronym = 'CNPq'),
+  (SELECT id FROM user WHERE name = 'Maria Oliveira' LIMIT 1),
   (SELECT id FROM user WHERE name = 'Maria Oliveira' LIMIT 1)
 );
 
-INSERT INTO project (id, name, code, description, status, is_active, start_date, end_date, budget, funding_agency_id, created_by_id)
+INSERT INTO project (id, name, code, description, area_id, status, is_active, start_date, end_date, budget, institution_id, funding_agency_id, created_by_id, responsible_user_id)
 VALUES (
   UUID(),
   'Projeto Exemplo 7',
   'PRJ-0007',
   'Projeto gerado automaticamente para fins de teste e validação.',
+  (SELECT id FROM area WHERE name = 'Aeroespacial'),
   'Planejado',
   TRUE,
   '2025-01-01',
   '2025-12-31',
   200000.00,
+  (SELECT id FROM institution WHERE acronym = 'FATEC-SJC'),
   (SELECT id FROM funding_agency WHERE acronym = 'Finep'),
+  (SELECT id FROM user WHERE name = 'Ana Lima' LIMIT 1),
   (SELECT id FROM user WHERE name = 'Ana Lima' LIMIT 1)
 );
 
-INSERT INTO project (id, name, code, description, status, is_active, start_date, end_date, budget, funding_agency_id, created_by_id)
+INSERT INTO project (id, name, code, description, area_id, status, is_active, start_date, end_date, budget, institution_id, funding_agency_id, created_by_id, responsible_user_id)
 VALUES (
   UUID(),
   'Projeto Exemplo 8',
   'PRJ-0008',
   'Projeto gerado automaticamente para fins de teste e validação.',
+  (SELECT id FROM area WHERE name = 'Aeroespacial'),
   'Concluído',
   TRUE,
   '2021-07-01',
   '2022-06-30',
   110000.00,
+  (SELECT id FROM institution WHERE acronym = 'FATEC-SJC'),
   (SELECT id FROM funding_agency WHERE acronym = 'Finep'),
+  (SELECT id FROM user WHERE name = 'Ana Lima' LIMIT 1),
   (SELECT id FROM user WHERE name = 'Ana Lima' LIMIT 1)
 );
 
-INSERT INTO project (id, name, code, description, status, is_active, start_date, end_date, budget, funding_agency_id, created_by_id)
+INSERT INTO project (id, name, code, description, area_id, status, is_active, start_date, end_date, budget, institution_id, funding_agency_id, created_by_id, responsible_user_id)
 VALUES (
   UUID(),
   'Projeto Exemplo 9',
   'PRJ-0009',
   'Projeto gerado automaticamente para fins de teste e validação.',
+  (SELECT id FROM area WHERE name = 'Aeroespacial'),
   'Em andamento',
   TRUE,
   '2024-02-01',
   '2024-11-30',
   67000.00,
+  (SELECT id FROM institution WHERE acronym = 'FATEC-SJC'),
   (SELECT id FROM funding_agency WHERE acronym = 'Sebrae'),
+  (SELECT id FROM user WHERE name = 'Maria Oliveira' LIMIT 1),
   (SELECT id FROM user WHERE name = 'Maria Oliveira' LIMIT 1)
 );
 
-INSERT INTO project (id, name, code, description, status, is_active, start_date, end_date, budget, funding_agency_id, created_by_id)
+INSERT INTO project (id, name, code, description, area_id, status, is_active, start_date, end_date, budget, institution_id, funding_agency_id, created_by_id, responsible_user_id)
 VALUES (
   UUID(),
   'Projeto Exemplo 10',
   'PRJ-0010',
   'Projeto gerado automaticamente para fins de teste e validação.',
+  (SELECT id FROM area WHERE name = 'Aeroespacial'),
   'Cancelado',
   TRUE,
   '2023-04-01',
   '2023-12-01',
   0.00,
+  (SELECT id FROM institution WHERE acronym = 'FATEC-SJC'),
   (SELECT id FROM funding_agency WHERE acronym = 'Sebrae'),
+  (SELECT id FROM user WHERE name = 'Pedro Rocha' LIMIT 1),
   (SELECT id FROM user WHERE name = 'Pedro Rocha' LIMIT 1)
 );
 
