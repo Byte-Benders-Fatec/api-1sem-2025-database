@@ -45,17 +45,17 @@ CREATE TABLE IF NOT EXISTS user (
 -- Finalidade: Armazena fotos de perfil dos usuários diretamente no banco de dados, com controle de ciclo de vida e auditoria.
 
 CREATE TABLE IF NOT EXISTS user_photo (
-    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da foto',
-    user_id CHAR(36) NOT NULL COMMENT 'Referência ao usuário proprietário da imagem',
-    mime_type VARCHAR(100) NOT NULL COMMENT 'Tipo MIME do arquivo (image/png, image/jpeg)',
+    user_id CHAR(36) PRIMARY KEY COMMENT 'Referência ao usuário, também usada como chave primária',
+    name VARCHAR(255) NOT NULL COMMENT 'Nome original do arquivo',
+    mime_type VARCHAR(100) NOT NULL COMMENT 'Tipo MIME do arquivo (image/png, image/jpeg, etc)',
     content MEDIUMBLOB NOT NULL COMMENT 'Conteúdo binário da imagem (até 16 MB)',
 
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Data de criação da foto',
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Última modificação da foto',
-    deleted_at DATETIME DEFAULT NULL COMMENT 'Data de exclusão lógica da foto',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Data de criação do documento',
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Última modificação do documento',
+    deleted_at DATETIME DEFAULT NULL COMMENT 'Data de exclusão lógica do documento',
 
-    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
-) COMMENT = 'Fotos de perfil dos usuários armazenadas no banco de dados, com rastreabilidade e suporte a exclusão lógica';
+    CONSTRAINT fk_user_photo_user FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+) COMMENT = 'Fotos de perfil dos usuários armazenadas no banco de dados, vinculadas diretamente por ID ao usuário';
 
 
 
