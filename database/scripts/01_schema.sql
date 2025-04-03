@@ -174,15 +174,33 @@ CREATE TABLE IF NOT EXISTS document (
 
 
 
+-- Tabela: area
+-- Finalidade: Define as áreas temáticas utilizadas para classificar os projetos da plataforma.
+
+CREATE TABLE IF NOT EXISTS area (
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da área temática',
+    name VARCHAR(100) NOT NULL UNIQUE COMMENT 'Nome da área (ex: Aeroespacial, Educação)',
+    description VARCHAR(255) COMMENT 'Descrição adicional da área, se necessário',
+	
+    is_active BOOLEAN NOT NULL DEFAULT TRUE COMMENT 'Indica se a área está ativa no sistema',
+    
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Data de criação da área',
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Data da última atualização da área',
+    deleted_at DATETIME DEFAULT NULL COMMENT 'Data de exclusão lógica da área'
+) COMMENT = 'Classificação temática para os projetos, podendo abranger diversas áreas do conhecimento';
+
+
+
 -- Tabela: project
--- Finalidade: Armazena os projetos cadastrados na plataforma, com vínculo à agência financiadora, criador, status e orçamento.
+-- Finalidade: Armazena os projetos cadastrados na plataforma, com vínculo à agência financiadora, instituição beneficiada, área de atuação, criador, responsável, status e orçamento.
 
 CREATE TABLE IF NOT EXISTS project (
     id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID do projeto',
     name VARCHAR(255) NOT NULL COMMENT 'Nome do projeto',
     code VARCHAR(50) NOT NULL UNIQUE COMMENT 'Código interno ou institucional do projeto',
     description TEXT COMMENT 'Descrição detalhada do projeto',
-
+    area_id CHAR(36) DEFAULT NULL COMMENT 'UUID da área de atuação do projeto',
+    
     status ENUM(
         'Planejado',
         'Em andamento',
@@ -196,17 +214,23 @@ CREATE TABLE IF NOT EXISTS project (
     end_date DATE NOT NULL COMMENT 'Data de término prevista ou real do projeto',
 
     budget DECIMAL(12,2) NOT NULL DEFAULT 0.00 COMMENT 'Orçamento total disponível para o projeto (em reais)',
-
+    
+    institution_id CHAR(36) DEFAULT NULL COMMENT 'UUID da instituição vinculada ao projeto',
     funding_agency_id CHAR(36) DEFAULT NULL COMMENT 'UUID da agência financiadora do projeto',
+
     created_by_id CHAR(36) DEFAULT NULL COMMENT 'UUID do usuário responsável pela criação do projeto',
+    responsible_user_id CHAR(36) DEFAULT NULL COMMENT 'UUID do usuário responsável pelo projeto',
 
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Data de criação do projeto',
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Última modificação do projeto',
     deleted_at DATETIME DEFAULT NULL COMMENT 'Data de exclusão lógica do projeto',
-
+    
+	FOREIGN KEY (area_id) REFERENCES area(id) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (institution_id) REFERENCES institution(id) ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY (funding_agency_id) REFERENCES funding_agency(id) ON DELETE SET NULL ON UPDATE CASCADE,
-    FOREIGN KEY (created_by_id) REFERENCES user(id) ON DELETE SET NULL ON UPDATE CASCADE
-) COMMENT = 'Projetos registrados na plataforma, com controle de status, orçamento e vínculo institucional';
+    FOREIGN KEY (created_by_id) REFERENCES user(id) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (responsible_user_id) REFERENCES user(id) ON DELETE SET NULL ON UPDATE CASCADE
+) COMMENT = 'Projetos registrados na plataforma, com controle de status, orçamento, responsáveis e vínculos institucionais';
 
 
 
@@ -227,23 +251,6 @@ CREATE TABLE IF NOT EXISTS project_document (
 
     UNIQUE KEY unique_project_document (project_id, document_id)
 ) COMMENT = 'Associação de documentos PDF a projetos cadastrados na plataforma';
-
-
-
--- Tabela: area
--- Finalidade: Define as áreas temáticas utilizadas para classificar os projetos da plataforma.
-
-CREATE TABLE IF NOT EXISTS area (
-    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da área temática',
-    name VARCHAR(100) NOT NULL UNIQUE COMMENT 'Nome da área (ex: Aeroespacial, Educação)',
-    description VARCHAR(255) COMMENT 'Descrição adicional da área, se necessário',
-	
-    is_active BOOLEAN NOT NULL DEFAULT TRUE COMMENT 'Indica se a área está ativa no sistema',
-    
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Data de criação da área',
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Data da última atualização da área',
-    deleted_at DATETIME DEFAULT NULL COMMENT 'Data de exclusão lógica da área'
-) COMMENT = 'Classificação temática para os projetos, podendo abranger diversas áreas do conhecimento';
 
 
 
