@@ -41,6 +41,24 @@ CREATE TABLE IF NOT EXISTS user (
 
 
 
+-- Tabela: user_photo
+-- Finalidade: Armazena fotos de perfil dos usuários diretamente no banco de dados, com controle de ciclo de vida e auditoria.
+
+CREATE TABLE IF NOT EXISTS user_photo (
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da foto',
+    user_id CHAR(36) NOT NULL COMMENT 'Referência ao usuário proprietário da imagem',
+    mime_type VARCHAR(100) NOT NULL COMMENT 'Tipo MIME do arquivo (image/png, image/jpeg)',
+    content MEDIUMBLOB NOT NULL COMMENT 'Conteúdo binário da imagem (até 16 MB)',
+
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Data de criação da foto',
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Última modificação da foto',
+    deleted_at DATETIME DEFAULT NULL COMMENT 'Data de exclusão lógica da foto',
+
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+) COMMENT = 'Fotos de perfil dos usuários armazenadas no banco de dados, com rastreabilidade e suporte a exclusão lógica';
+
+
+
 -- Tabela: action
 -- Finalidade: Define as ações possíveis sobre os módulos do sistema (ex: visualizar, criar, editar, excluir).
 
