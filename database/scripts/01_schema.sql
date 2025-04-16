@@ -210,15 +210,15 @@ CREATE TABLE IF NOT EXISTS area (
 
 
 -- Tabela: project
--- Finalidade: Armazena os projetos cadastrados na plataforma, com vínculo à agência financiadora, instituição beneficiada, área de atuação, criador, responsável, status e orçamento.
+-- Finalidade: Armazena os projetos cadastrados na plataforma, com informações como nome, código, descrição, status, orçamento, datas, autor da criação e responsável pela condução.
+-- O vínculo com agências financiadoras, instituições, áreas temáticas, usuários e times é feito por meio de tabelas associativas N:N.
 
 CREATE TABLE IF NOT EXISTS project (
     id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID do projeto',
     name VARCHAR(255) NOT NULL COMMENT 'Nome do projeto',
     code VARCHAR(50) NOT NULL UNIQUE COMMENT 'Código interno ou institucional do projeto',
     description TEXT COMMENT 'Descrição detalhada do projeto',
-    area_id CHAR(36) DEFAULT NULL COMMENT 'UUID da área de atuação do projeto',
-    
+
     status ENUM(
         'Planejado',
         'Em andamento',
@@ -230,12 +230,11 @@ CREATE TABLE IF NOT EXISTS project (
     is_active BOOLEAN NOT NULL DEFAULT TRUE COMMENT 'Define se o projeto está ativo na plataforma',
     start_date DATE NOT NULL COMMENT 'Data de início planejada ou real do projeto',
     end_date DATE NOT NULL COMMENT 'Data de término prevista ou real do projeto',
-
-    budget DECIMAL(12,2) NOT NULL DEFAULT 0.00 COMMENT 'Orçamento total disponível para o projeto (em reais)',
+	CHECK (end_date >= start_date),
     
-    institution_id CHAR(36) DEFAULT NULL COMMENT 'UUID da instituição vinculada ao projeto',
-    funding_agency_id CHAR(36) DEFAULT NULL COMMENT 'UUID da agência financiadora do projeto',
-
+    budget DECIMAL(12,2) NOT NULL DEFAULT 0.00 COMMENT 'Orçamento total disponível para o projeto (em reais)',
+    CHECK (budget >= 0.00),
+    
     created_by_id CHAR(36) DEFAULT NULL COMMENT 'UUID do usuário responsável pela criação do projeto',
     responsible_user_id CHAR(36) DEFAULT NULL COMMENT 'UUID do usuário responsável pelo projeto',
 
@@ -243,12 +242,9 @@ CREATE TABLE IF NOT EXISTS project (
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Última modificação do projeto',
     deleted_at DATETIME DEFAULT NULL COMMENT 'Data de exclusão lógica do projeto',
     
-	FOREIGN KEY (area_id) REFERENCES area(id) ON DELETE SET NULL ON UPDATE CASCADE,
-    FOREIGN KEY (institution_id) REFERENCES institution(id) ON DELETE SET NULL ON UPDATE CASCADE,
-    FOREIGN KEY (funding_agency_id) REFERENCES funding_agency(id) ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY (created_by_id) REFERENCES user(id) ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY (responsible_user_id) REFERENCES user(id) ON DELETE SET NULL ON UPDATE CASCADE
-) COMMENT = 'Projetos registrados na plataforma, com controle de status, orçamento, responsáveis e vínculos institucionais';
+) COMMENT = 'Projetos registrados na plataforma, com controle de status, orçamento, responsáveis e datas';
 
 
 
@@ -288,6 +284,44 @@ CREATE TABLE IF NOT EXISTS project_area (
 
     UNIQUE KEY unique_project_area (project_id, area_id)
 ) COMMENT = 'Associação entre projetos e áreas temáticas, permitindo classificação múltipla';
+
+
+
+-- Tabela: project_institution
+-- Finalidade: Relaciona projetos a uma ou mais instituições, permitindo múltiplos vínculos institucionais por projeto.
+
+CREATE TABLE IF NOT EXISTS project_institution (
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da associação entre projeto e instituição',
+    project_id CHAR(36) NOT NULL COMMENT 'UUID do projeto relacionado',
+    institution_id CHAR(36) NOT NULL COMMENT 'UUID da instituição vinculada ao projeto',
+
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Data da associação do projeto à instituição',
+    deleted_at DATETIME DEFAULT NULL COMMENT 'Data de exclusão lógica da associação',
+
+    FOREIGN KEY (project_id) REFERENCES project(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (institution_id) REFERENCES institution(id) ON DELETE CASCADE ON UPDATE CASCADE,
+
+    UNIQUE KEY unique_project_institution (project_id, institution_id)
+) COMMENT = 'Associação entre projetos e instituições, permitindo múltiplos vínculos institucionais por projeto';
+
+
+
+-- Tabela: project_funding_agency
+-- Finalidade: Relaciona projetos a uma ou mais agências financiadoras, permitindo múltiplas fontes de financiamento por projeto.
+
+CREATE TABLE IF NOT EXISTS project_funding_agency (
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da associação entre projeto e agência financiadora',
+    project_id CHAR(36) NOT NULL COMMENT 'UUID do projeto relacionado',
+    funding_agency_id CHAR(36) NOT NULL COMMENT 'UUID da agência financiadora vinculada ao projeto',
+
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Data da associação do projeto à agência financiadora',
+    deleted_at DATETIME DEFAULT NULL COMMENT 'Data de exclusão lógica da associação',
+
+    FOREIGN KEY (project_id) REFERENCES project(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (funding_agency_id) REFERENCES funding_agency(id) ON DELETE CASCADE ON UPDATE CASCADE,
+
+    UNIQUE KEY unique_project_funding_agency (project_id, funding_agency_id)
+) COMMENT = 'Associação entre projetos e agências financiadoras, permitindo múltiplas fontes de financiamento por projeto';
 
 
 
@@ -384,10 +418,13 @@ CREATE TABLE IF NOT EXISTS activity (
 
     status ENUM('Não iniciada', 'Em andamento', 'Concluída', 'Cancelada') DEFAULT 'Não iniciada' COMMENT 'Status atual da atividade',
 
-    allocated_budget DECIMAL(12,2) DEFAULT 0.00 COMMENT 'Valor em reais reservado para esta atividade dentro do orçamento do projeto',
+    allocated_budget DECIMAL(12,2) NOT NULL DEFAULT 0.00 COMMENT 'Valor em reais reservado para esta atividade dentro do orçamento do projeto',
+    CHECK (allocated_budget >= 0.00),
+    
     start_date DATE NOT NULL COMMENT 'Data de início planejada da atividade',
     end_date DATE NOT NULL COMMENT 'Data de término planejada da atividade',
-
+	CHECK (end_date >= start_date),
+    
     created_by CHAR(36) DEFAULT NULL COMMENT 'Usuário que criou a atividade',
     is_active BOOLEAN NOT NULL DEFAULT TRUE COMMENT 'Indica se a atividade está ativa no sistema',
 
@@ -436,8 +473,10 @@ CREATE TABLE IF NOT EXISTS task (
     title VARCHAR(255) NOT NULL COMMENT 'Título da tarefa',
     description TEXT DEFAULT NULL COMMENT 'Descrição detalhada da tarefa',
     
-    time_spent_minutes INT DEFAULT 0 COMMENT 'Tempo em minutos dedicado à tarefa',
-    cost DECIMAL(12,2) DEFAULT 0.00 COMMENT 'Custo monetário associado à tarefa (se aplicável)',
+    time_spent_minutes INT NOT NULL DEFAULT 0 COMMENT 'Tempo em minutos dedicado à tarefa',
+    CHECK (time_spent_minutes >= 0),
+    cost DECIMAL(12,2) NOT NULL DEFAULT 0.00 COMMENT 'Custo monetário associado à tarefa (se aplicável)',
+    CHECK (cost >= 0.00),
     
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Data de criação da tarefa',
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Última modificação da tarefa',
