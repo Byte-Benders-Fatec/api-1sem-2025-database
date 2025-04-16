@@ -278,186 +278,157 @@ VALUES (UUID(), 'documento_PRJ-0010_Sebrae.pdf', 'application/pdf', LOAD_FILE('C
 
 
 -- Seed: project
--- Projetos institucionais de exemplo, vinculados a diferentes agências financiadoras, instituições de ensino e áreas temáticas.
--- Os registros incluem status diversos, datas coerentes com o ciclo de vida e referência ao usuário criador e responsável pelo projeto.
--- A associação com outras entidades é feita via subqueries com base em valores únicos como nome ou sigla/acrônimo.
+-- Projetos institucionais de exemplo, com diferentes estágios (status) e datas coerentes com seus ciclos de vida.
+-- Cada projeto possui referência ao usuário que o criou e ao usuário responsável pela sua condução.
+-- Os vínculos com agências financiadoras, instituições e áreas temáticas são realizados por meio de tabelas associativas N:N,
+-- com os identificadores buscados dinamicamente através de subqueries baseadas em valores únicos (ex: nome do usuário).
 
-INSERT INTO project (id, name, code, description, area_id, status, is_active, start_date, end_date, budget, institution_id, funding_agency_id, created_by_id, responsible_user_id)
+INSERT INTO project (id, name, code, description, status, is_active, start_date, end_date, budget, created_by_id, responsible_user_id)
 VALUES (
   UUID(),
   'Projeto Exemplo 1',
   'PRJ-0001',
   'Projeto gerado automaticamente para fins de teste e validação.',
-  (SELECT id FROM area WHERE name = 'Tecnologia da Informação'),
   'Planejado',
   TRUE,
   '2024-09-01',
   '2025-08-31',
   100000.00,
-  (SELECT id FROM institution WHERE acronym = 'FATEC-SJC'),
-  (SELECT id FROM funding_agency WHERE acronym = 'CAPES'),
   (SELECT id FROM user WHERE name = 'Ana Lima' LIMIT 1),
   (SELECT id FROM user WHERE name = 'Ana Lima' LIMIT 1)
 );
 
-INSERT INTO project (id, name, code, description, area_id, status, is_active, start_date, end_date, budget, institution_id, funding_agency_id, created_by_id, responsible_user_id)
+INSERT INTO project (id, name, code, description, status, is_active, start_date, end_date, budget, created_by_id, responsible_user_id)
 VALUES (
   UUID(),
   'Projeto Exemplo 2',
   'PRJ-0002',
   'Projeto gerado automaticamente para fins de teste e validação.',
-  (SELECT id FROM area WHERE name = 'Aeroespacial'),
   'Em andamento',
   TRUE,
   '2024-01-15',
   '2024-12-15',
   85000.00,
-  (SELECT id FROM institution WHERE acronym = 'FATEC-SJC'),
-  (SELECT id FROM funding_agency WHERE acronym = 'CAPES'),
   (SELECT id FROM user WHERE name = 'Pedro Rocha' LIMIT 1),
   (SELECT id FROM user WHERE name = 'Pedro Rocha' LIMIT 1)
 );
 
-INSERT INTO project (id, name, code, description, area_id, status, is_active, start_date, end_date, budget, institution_id, funding_agency_id, created_by_id, responsible_user_id)
+INSERT INTO project (id, name, code, description, status, is_active, start_date, end_date, budget, created_by_id, responsible_user_id)
 VALUES (
   UUID(),
   'Projeto Exemplo 3',
   'PRJ-0003',
   'Projeto gerado automaticamente para fins de teste e validação.',
-  (SELECT id FROM area WHERE name = 'Saúde'),
   'Suspenso',
   TRUE,
   '2023-01-01',
   '2024-12-31',
   120000.00,
-  (SELECT id FROM institution WHERE acronym = 'FATEC-SJC'),
-  (SELECT id FROM funding_agency WHERE acronym = 'FAPESP'),
   (SELECT id FROM user WHERE name = 'Ana Lima' LIMIT 1),
   (SELECT id FROM user WHERE name = 'Ana Lima' LIMIT 1)
 );
 
-INSERT INTO project (id, name, code, description, area_id, status, is_active, start_date, end_date, budget, institution_id, funding_agency_id, created_by_id, responsible_user_id)
+INSERT INTO project (id, name, code, description, status, is_active, start_date, end_date, budget, created_by_id, responsible_user_id)
 VALUES (
   UUID(),
   'Projeto Exemplo 4',
   'PRJ-0004',
   'Projeto gerado automaticamente para fins de teste e validação.',
-  (SELECT id FROM area WHERE name = 'Tecnologia da Informação'),
   'Cancelado',
   TRUE,
   '2023-06-01',
   '2024-05-31',
   0.00,
-  (SELECT id FROM institution WHERE acronym = 'FATEC-SJC'),
-  (SELECT id FROM funding_agency WHERE acronym = 'FAPESP'),
   (SELECT id FROM user WHERE name = 'Pedro Rocha' LIMIT 1),
   (SELECT id FROM user WHERE name = 'Pedro Rocha' LIMIT 1)
 );
 
-INSERT INTO project (id, name, code, description, area_id, status, is_active, start_date, end_date, budget, institution_id, funding_agency_id, created_by_id, responsible_user_id)
+INSERT INTO project (id, name, code, description, status, is_active, start_date, end_date, budget, created_by_id, responsible_user_id)
 VALUES (
   UUID(),
   'Projeto Exemplo 5',
   'PRJ-0005',
   'Projeto gerado automaticamente para fins de teste e validação.',
-  (SELECT id FROM area WHERE name = 'Educação'),
   'Concluído',
   TRUE,
   '2022-01-01',
   '2023-12-31',
   70000.00,
-  (SELECT id FROM institution WHERE acronym = 'FATEC-SJC'),
-  (SELECT id FROM funding_agency WHERE acronym = 'CNPq'),
   (SELECT id FROM user WHERE name = 'Maria Oliveira' LIMIT 1),
   (SELECT id FROM user WHERE name = 'Maria Oliveira' LIMIT 1)
 );
 
-INSERT INTO project (id, name, code, description, area_id, status, is_active, start_date, end_date, budget, institution_id, funding_agency_id, created_by_id, responsible_user_id)
+INSERT INTO project (id, name, code, description, status, is_active, start_date, end_date, budget, created_by_id, responsible_user_id)
 VALUES (
   UUID(),
   'Projeto Exemplo 6',
   'PRJ-0006',
   'Projeto gerado automaticamente para fins de teste e validação.',
-  (SELECT id FROM area WHERE name = 'Educação'),
   'Em andamento',
   TRUE,
   '2024-03-01',
   '2025-02-28',
   95000.00,
-  (SELECT id FROM institution WHERE acronym = 'FATEC-SJC'),
-  (SELECT id FROM funding_agency WHERE acronym = 'CNPq'),
   (SELECT id FROM user WHERE name = 'Maria Oliveira' LIMIT 1),
   (SELECT id FROM user WHERE name = 'Maria Oliveira' LIMIT 1)
 );
 
-INSERT INTO project (id, name, code, description, area_id, status, is_active, start_date, end_date, budget, institution_id, funding_agency_id, created_by_id, responsible_user_id)
+INSERT INTO project (id, name, code, description, status, is_active, start_date, end_date, budget, created_by_id, responsible_user_id)
 VALUES (
   UUID(),
   'Projeto Exemplo 7',
   'PRJ-0007',
   'Projeto gerado automaticamente para fins de teste e validação.',
-  (SELECT id FROM area WHERE name = 'Energia'),
   'Planejado',
   TRUE,
   '2025-01-01',
   '2025-12-31',
   200000.00,
-  (SELECT id FROM institution WHERE acronym = 'FATEC-SJC'),
-  (SELECT id FROM funding_agency WHERE acronym = 'Finep'),
   (SELECT id FROM user WHERE name = 'Ana Lima' LIMIT 1),
   (SELECT id FROM user WHERE name = 'Ana Lima' LIMIT 1)
 );
 
-INSERT INTO project (id, name, code, description, area_id, status, is_active, start_date, end_date, budget, institution_id, funding_agency_id, created_by_id, responsible_user_id)
+INSERT INTO project (id, name, code, description, status, is_active, start_date, end_date, budget, created_by_id, responsible_user_id)
 VALUES (
   UUID(),
   'Projeto Exemplo 8',
   'PRJ-0008',
   'Projeto gerado automaticamente para fins de teste e validação.',
-  (SELECT id FROM area WHERE name = 'Meio Ambiente'),
   'Concluído',
   TRUE,
   '2021-07-01',
   '2022-06-30',
   110000.00,
-  (SELECT id FROM institution WHERE acronym = 'FATEC-SJC'),
-  (SELECT id FROM funding_agency WHERE acronym = 'Finep'),
   (SELECT id FROM user WHERE name = 'Ana Lima' LIMIT 1),
   (SELECT id FROM user WHERE name = 'Ana Lima' LIMIT 1)
 );
 
-INSERT INTO project (id, name, code, description, area_id, status, is_active, start_date, end_date, budget, institution_id, funding_agency_id, created_by_id, responsible_user_id)
+INSERT INTO project (id, name, code, description, status, is_active, start_date, end_date, budget, created_by_id, responsible_user_id)
 VALUES (
   UUID(),
   'Projeto Exemplo 9',
   'PRJ-0009',
   'Projeto gerado automaticamente para fins de teste e validação.',
-  (SELECT id FROM area WHERE name = 'Robótica'),
   'Em andamento',
   TRUE,
   '2024-02-01',
   '2024-11-30',
   67000.00,
-  (SELECT id FROM institution WHERE acronym = 'FATEC-SJC'),
-  (SELECT id FROM funding_agency WHERE acronym = 'Sebrae'),
   (SELECT id FROM user WHERE name = 'Maria Oliveira' LIMIT 1),
   (SELECT id FROM user WHERE name = 'Maria Oliveira' LIMIT 1)
 );
 
-INSERT INTO project (id, name, code, description, area_id, status, is_active, start_date, end_date, budget, institution_id, funding_agency_id, created_by_id, responsible_user_id)
+INSERT INTO project (id, name, code, description, status, is_active, start_date, end_date, budget, created_by_id, responsible_user_id)
 VALUES (
   UUID(),
   'Projeto Exemplo 10',
   'PRJ-0010',
   'Projeto gerado automaticamente para fins de teste e validação.',
-  (SELECT id FROM area WHERE name = 'Tecnologia da Informação'),
   'Cancelado',
   TRUE,
   '2023-04-01',
   '2023-12-01',
   0.00,
-  (SELECT id FROM institution WHERE acronym = 'FATEC-SJC'),
-  (SELECT id FROM funding_agency WHERE acronym = 'Sebrae'),
   (SELECT id FROM user WHERE name = 'Pedro Rocha' LIMIT 1),
   (SELECT id FROM user WHERE name = 'Pedro Rocha' LIMIT 1)
 );
@@ -504,6 +475,96 @@ VALUES
   -- PRJ-0010: Robótica + Tecnologia da Informação
   (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0010' LIMIT 1), (SELECT id FROM area WHERE name = 'Robótica' LIMIT 1)),
   (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0010' LIMIT 1), (SELECT id FROM area WHERE name = 'Tecnologia da Informação' LIMIT 1));
+
+
+
+-- Seed: project_institution
+-- Associação entre projetos e instituições de ensino/pesquisa, permitindo múltiplos vínculos institucionais por projeto.
+-- Essa estrutura N:N amplia a rastreabilidade dos projetos e facilita análises institucionais.
+
+INSERT INTO project_institution (id, project_id, institution_id)
+VALUES
+  -- PRJ-0001: FATEC-SJC, FATEC-SP, FATEC-TAUBATÉ
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0001' LIMIT 1), (SELECT id FROM institution WHERE acronym = 'FATEC-SJC' LIMIT 1)),
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0001' LIMIT 1), (SELECT id FROM institution WHERE acronym = 'FATEC-SP' LIMIT 1)),
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0001' LIMIT 1), (SELECT id FROM institution WHERE acronym = 'FATEC-TAUBATÉ' LIMIT 1)),
+
+  -- PRJ-0002: FATEC-JACAREÍ
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0002' LIMIT 1), (SELECT id FROM institution WHERE acronym = 'FATEC-JACAREÍ' LIMIT 1)),
+
+  -- PRJ-0003: FATEC-SJC, FATEC-MOGI
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0003' LIMIT 1), (SELECT id FROM institution WHERE acronym = 'FATEC-SJC' LIMIT 1)),
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0003' LIMIT 1), (SELECT id FROM institution WHERE acronym = 'FATEC-MOGI' LIMIT 1)),
+
+  -- PRJ-0004: FATEC-TAUBATÉ
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0004' LIMIT 1), (SELECT id FROM institution WHERE acronym = 'FATEC-TAUBATÉ' LIMIT 1)),
+
+  -- PRJ-0005: FATEC-GUARATINGUETÁ, FATEC-JACAREÍ
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0005' LIMIT 1), (SELECT id FROM institution WHERE acronym = 'FATEC-GUARATINGUETÁ' LIMIT 1)),
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0005' LIMIT 1), (SELECT id FROM institution WHERE acronym = 'FATEC-JACAREÍ' LIMIT 1)),
+
+  -- PRJ-0006: FATEC-SP
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0006' LIMIT 1), (SELECT id FROM institution WHERE acronym = 'FATEC-SP' LIMIT 1)),
+
+  -- PRJ-0007: FATEC-SJC
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0007' LIMIT 1), (SELECT id FROM institution WHERE acronym = 'FATEC-SJC' LIMIT 1)),
+
+  -- PRJ-0008: FATEC-TAUBATÉ, FATEC-MOGI
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0008' LIMIT 1), (SELECT id FROM institution WHERE acronym = 'FATEC-TAUBATÉ' LIMIT 1)),
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0008' LIMIT 1), (SELECT id FROM institution WHERE acronym = 'FATEC-MOGI' LIMIT 1)),
+
+  -- PRJ-0009: FATEC-GUARATINGUETÁ
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0009' LIMIT 1), (SELECT id FROM institution WHERE acronym = 'FATEC-GUARATINGUETÁ' LIMIT 1)),
+
+  -- PRJ-0010: FATEC-SJC, FATEC-SP, FATEC-JACAREÍ
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0010' LIMIT 1), (SELECT id FROM institution WHERE acronym = 'FATEC-SJC' LIMIT 1)),
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0010' LIMIT 1), (SELECT id FROM institution WHERE acronym = 'FATEC-SP' LIMIT 1)),
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0010' LIMIT 1), (SELECT id FROM institution WHERE acronym = 'FATEC-JACAREÍ' LIMIT 1));
+
+
+
+-- Seed: project_funding_agency
+-- Associação entre projetos e agências financiadoras, permitindo múltiplas fontes de fomento por projeto.
+-- Essa estrutura N:N permite rastrear com precisão as origens de financiamento e facilitar análises por agência.
+
+INSERT INTO project_funding_agency (id, project_id, funding_agency_id)
+VALUES
+  -- PRJ-0001: CAPES, CNPq
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0001' LIMIT 1), (SELECT id FROM funding_agency WHERE acronym = 'CAPES' LIMIT 1)),
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0001' LIMIT 1), (SELECT id FROM funding_agency WHERE acronym = 'CNPq' LIMIT 1)),
+
+  -- PRJ-0002: FAPESP
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0002' LIMIT 1), (SELECT id FROM funding_agency WHERE acronym = 'FAPESP' LIMIT 1)),
+
+  -- PRJ-0003: Finep, Sebrae, CAPES
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0003' LIMIT 1), (SELECT id FROM funding_agency WHERE acronym = 'Finep' LIMIT 1)),
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0003' LIMIT 1), (SELECT id FROM funding_agency WHERE acronym = 'Sebrae' LIMIT 1)),
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0003' LIMIT 1), (SELECT id FROM funding_agency WHERE acronym = 'CAPES' LIMIT 1)),
+
+  -- PRJ-0004: CNPq
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0004' LIMIT 1), (SELECT id FROM funding_agency WHERE acronym = 'CNPq' LIMIT 1)),
+
+  -- PRJ-0005: CAPES, FAPESP
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0005' LIMIT 1), (SELECT id FROM funding_agency WHERE acronym = 'CAPES' LIMIT 1)),
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0005' LIMIT 1), (SELECT id FROM funding_agency WHERE acronym = 'FAPESP' LIMIT 1)),
+
+  -- PRJ-0006: Finep
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0006' LIMIT 1), (SELECT id FROM funding_agency WHERE acronym = 'Finep' LIMIT 1)),
+
+  -- PRJ-0007: Sebrae
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0007' LIMIT 1), (SELECT id FROM funding_agency WHERE acronym = 'Sebrae' LIMIT 1)),
+
+  -- PRJ-0008: FAPESP, CNPq
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0008' LIMIT 1), (SELECT id FROM funding_agency WHERE acronym = 'FAPESP' LIMIT 1)),
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0008' LIMIT 1), (SELECT id FROM funding_agency WHERE acronym = 'CNPq' LIMIT 1)),
+
+  -- PRJ-0009: CAPES
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0009' LIMIT 1), (SELECT id FROM funding_agency WHERE acronym = 'CAPES' LIMIT 1)),
+
+  -- PRJ-0010: Sebrae, Finep, CAPES
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0010' LIMIT 1), (SELECT id FROM funding_agency WHERE acronym = 'Sebrae' LIMIT 1)),
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0010' LIMIT 1), (SELECT id FROM funding_agency WHERE acronym = 'Finep' LIMIT 1)),
+  (UUID(), (SELECT id FROM project WHERE code = 'PRJ-0010' LIMIT 1), (SELECT id FROM funding_agency WHERE acronym = 'CAPES' LIMIT 1));
 
 
 
