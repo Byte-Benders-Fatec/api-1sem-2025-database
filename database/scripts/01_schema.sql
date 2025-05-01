@@ -22,13 +22,12 @@ CREATE TABLE IF NOT EXISTS system_role (
 
 
 -- Tabela: user
--- Finalidade: Armazena os usuários do sistema, com suas credenciais, status de ativação e papel global.
+-- Finalidade: Armazena os dados cadastrais e de acesso lógico dos usuários do sistema.
 
 CREATE TABLE IF NOT EXISTS user (
     id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID do usuário',
     name VARCHAR(100) NOT NULL COMMENT 'Nome completo do usuário',
     email VARCHAR(100) NOT NULL UNIQUE COMMENT 'E-mail utilizado para login',
-    password_hash VARCHAR(255) NOT NULL COMMENT 'Senha criptografada do usuário',
     is_active BOOLEAN NOT NULL DEFAULT TRUE COMMENT 'Indica se o usuário está ativo no sistema',
     system_role_id INT NOT NULL COMMENT 'UUID do papel global do sistema associado ao usuário',
 
@@ -37,7 +36,7 @@ CREATE TABLE IF NOT EXISTS user (
     deleted_at DATETIME DEFAULT NULL COMMENT 'Data de exclusão lógica (soft delete)',
 
     FOREIGN KEY (system_role_id) REFERENCES system_role(id)
-) COMMENT = 'Tabela de usuários do sistema com controle de acesso e ciclo de vida';
+) COMMENT = 'Tabela de usuários com ciclo de vida e referência ao papel global';
 
 
 
@@ -544,3 +543,24 @@ CREATE TABLE IF NOT EXISTS two_fa_code (
 
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE
 ) COMMENT = 'Armazena códigos de verificação temporários para autenticação em dois fatores via e-mail';
+
+-- Tabela: user_password
+-- Finalidade: Armazena senhas associadas ao usuário, com suporte a senhas permanentes e temporárias.
+-- Permite o controle de expiração, tentativas de autenticação, histórico e bloqueios por uso indevido.
+-- É utilizada para autenticação segura de usuários e prevenção de reuso de senhas anteriores.
+
+CREATE TABLE IF NOT EXISTS user_password (
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da entrada de senha',
+    user_id CHAR(36) NOT NULL COMMENT 'UUID do usuário ao qual a senha está associada',
+    password_hash VARCHAR(255) NOT NULL COMMENT 'Hash seguro da senha (permanente ou temporária)',
+    is_temp BOOLEAN NOT NULL DEFAULT FALSE COMMENT 'Indica se a senha é temporária (ex: recuperação de senha)',
+    attempts INT DEFAULT 0 COMMENT 'Número de tentativas de login com esta senha',
+    max_attempts INT DEFAULT 5 COMMENT 'Número máximo de tentativas permitidas antes de bloquear esta senha',
+    locked_until DATETIME DEFAULT NULL COMMENT 'Data/hora até a qual esta senha está temporariamente bloqueada após tentativas inválidas',
+    status ENUM('valid', 'expired', 'blocked') DEFAULT 'valid' COMMENT 'Estado da senha: válida, expirada ou bloqueada',
+    expires_at DATETIME DEFAULT NULL COMMENT 'Data e hora de expiração da senha (se temporária)',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Data de criação da senha',
+    deleted_at DATETIME DEFAULT NULL COMMENT 'Soft delete ou inativação da senha',
+
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE
+) COMMENT = 'Armazena senhas com suporte a temporárias, tentativas, bloqueios e expiração.';
