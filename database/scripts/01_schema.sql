@@ -529,7 +529,7 @@ CREATE TABLE IF NOT EXISTS task_document (
 
 -- Tabela: two_fa_code
 -- Finalidade: Armazena códigos de verificação temporários para autenticação em duas etapas via e-mail.
--- Utilizada para validar acessos com código de 6 dígitos enviado após login com credenciais válidas.
+-- Utilizada para validar acessos com código de 6 dígitos enviado após login, redefinição de senha ou confirmação de ações críticas.
 
 CREATE TABLE IF NOT EXISTS two_fa_code (
     id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID do código de verificação gerado',
@@ -538,11 +538,14 @@ CREATE TABLE IF NOT EXISTS two_fa_code (
     attempts INT DEFAULT 0 COMMENT 'Número de tentativas realizadas com esse código',
     max_attempts INT DEFAULT 5 COMMENT 'Número máximo de tentativas permitidas',
     status ENUM('pending', 'verified', 'denied') DEFAULT 'pending' COMMENT 'Estado da verificação: pendente, verificado ou negado',
+    type ENUM('login', 'password_reset', 'password_change', 'critical_action') NOT NULL DEFAULT 'login' COMMENT 'Finalidade do código de verificação gerado',
     expires_at DATETIME NOT NULL COMMENT 'Data e hora de expiração do código',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Data de criação do código',
 
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE
-) COMMENT = 'Armazena códigos de verificação temporários para autenticação em dois fatores via e-mail';
+) COMMENT = 'Armazena códigos de verificação temporários para autenticação em dois fatores e validação de ações sensíveis.';
+
+
 
 -- Tabela: user_password
 -- Finalidade: Armazena senhas associadas ao usuário, com suporte a senhas permanentes e temporárias.
