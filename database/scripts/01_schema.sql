@@ -549,8 +549,8 @@ CREATE TABLE IF NOT EXISTS two_fa_code (
 
 -- Tabela: user_password
 -- Finalidade: Armazena senhas associadas ao usuário, com suporte a senhas permanentes e temporárias.
--- Permite o controle de expiração, tentativas de autenticação, histórico e bloqueios por uso indevido.
--- É utilizada para autenticação segura de usuários e prevenção de reuso de senhas anteriores.
+-- Permite o controle de expiração, tentativas de autenticação, histórico, níveis de bloqueio e prevenção de reuso de senhas anteriores.
+-- É utilizada para autenticação segura de usuários.
 
 CREATE TABLE IF NOT EXISTS user_password (
     id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID da entrada de senha',
@@ -560,10 +560,11 @@ CREATE TABLE IF NOT EXISTS user_password (
     attempts INT DEFAULT 0 COMMENT 'Número de tentativas de login com esta senha',
     max_attempts INT DEFAULT 5 COMMENT 'Número máximo de tentativas permitidas antes de bloquear esta senha',
     locked_until DATETIME DEFAULT NULL COMMENT 'Data/hora até a qual esta senha está temporariamente bloqueada após tentativas inválidas',
+    lockout_level INT NOT NULL DEFAULT 0 COMMENT 'Nível de bloqueio aplicado ao usuário',
     status ENUM('valid', 'expired', 'blocked') DEFAULT 'valid' COMMENT 'Estado da senha: válida, expirada ou bloqueada',
     expires_at DATETIME DEFAULT NULL COMMENT 'Data e hora de expiração da senha (se temporária)',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Data de criação da senha',
     deleted_at DATETIME DEFAULT NULL COMMENT 'Soft delete ou inativação da senha',
 
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE
-) COMMENT = 'Armazena senhas com suporte a temporárias, tentativas, bloqueios e expiração.';
+) COMMENT = 'Armazena senhas com suporte a temporárias, tentativas, bloqueios, expiração e níveis de segurança.';
