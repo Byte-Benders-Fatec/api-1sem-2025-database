@@ -535,6 +535,7 @@ CREATE TABLE IF NOT EXISTS two_fa_code (
     id CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'UUID do código de verificação gerado',
     user_id CHAR(36) NOT NULL COMMENT 'UUID do usuário que solicitou o código de verificação',
     code_hash VARCHAR(255) NOT NULL COMMENT 'Hash seguro do código de 6 dígitos enviado ao e-mail',
+    is_double BOOLEAN NOT NULL DEFAULT FALSE COMMENT 'Indica se o código é dublo (12 dígitos) ou simples (6 dígitos)',
     attempts INT DEFAULT 0 COMMENT 'Número de tentativas realizadas com esse código',
     max_attempts INT DEFAULT 5 COMMENT 'Número máximo de tentativas permitidas',
     status ENUM('pending', 'verified', 'denied') DEFAULT 'pending' COMMENT 'Estado da verificação: pendente, verificado ou negado',
