@@ -424,7 +424,7 @@ CREATE TABLE IF NOT EXISTS activity (
     end_date DATE NOT NULL COMMENT 'Data de término planejada da atividade',
 	CHECK (end_date >= start_date),
     
-    created_by CHAR(36) DEFAULT NULL COMMENT 'Usuário que criou a atividade',
+    created_by_id CHAR(36) DEFAULT NULL COMMENT 'UUID do usuário responsável pela criação da atividade',
     is_active BOOLEAN NOT NULL DEFAULT TRUE COMMENT 'Indica se a atividade está ativa no sistema',
 
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Data de criação da atividade',

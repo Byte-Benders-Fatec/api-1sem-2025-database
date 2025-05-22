@@ -1180,7 +1180,7 @@ VALUES (
 -- Cada atividade possui título, período de execução e orçamento previsto.
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 1 de PRJ-0001', 'Atividade 1, PRJ-0001: gerada automaticamente para testes', '2023-01-01', '2023-02-28', 'Não iniciada', TRUE, 6029.00,
     (SELECT id FROM project WHERE code = 'PRJ-0001' LIMIT 1),
@@ -1188,7 +1188,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 2 de PRJ-0001', 'Atividade 2, PRJ-0001: gerada automaticamente para testes', '2023-03-01', '2023-04-30', 'Não iniciada', TRUE, 6169.00,
     (SELECT id FROM project WHERE code = 'PRJ-0001' LIMIT 1),
@@ -1196,7 +1196,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 3 de PRJ-0001', 'Atividade 3, PRJ-0001: gerada automaticamente para testes', '2023-05-01', '2023-06-30', 'Não iniciada', TRUE, 4042.00,
     (SELECT id FROM project WHERE code = 'PRJ-0001' LIMIT 1),
@@ -1204,7 +1204,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 1 de PRJ-0002', 'Atividade 1, PRJ-0002: gerada automaticamente para testes', '2023-07-01', '2023-08-31', 'Concluída', FALSE, 6685.00,
     (SELECT id FROM project WHERE code = 'PRJ-0002' LIMIT 1),
@@ -1212,7 +1212,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 2 de PRJ-0002', 'Atividade 2, PRJ-0002: gerada automaticamente para testes', '2023-09-01', '2023-10-31', 'Concluída', FALSE, 2700.00,
     (SELECT id FROM project WHERE code = 'PRJ-0002' LIMIT 1),
@@ -1220,7 +1220,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 3 de PRJ-0002', 'Atividade 3, PRJ-0002: gerada automaticamente para testes', '2023-11-01', '2023-12-31', 'Em andamento', TRUE, 8673.00,
     (SELECT id FROM project WHERE code = 'PRJ-0002' LIMIT 1),
@@ -1228,7 +1228,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 1 de PRJ-0003', 'Atividade 1, PRJ-0003: gerada automaticamente para testes', '2024-01-01', '2024-02-29', 'Concluída', FALSE, 3552.00,
     (SELECT id FROM project WHERE code = 'PRJ-0003' LIMIT 1),
@@ -1236,7 +1236,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 2 de PRJ-0003', 'Atividade 2, PRJ-0003: gerada automaticamente para testes', '2024-03-01', '2024-04-30', 'Em andamento', TRUE, 8302.00,
     (SELECT id FROM project WHERE code = 'PRJ-0003' LIMIT 1),
@@ -1244,7 +1244,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 3 de PRJ-0003', 'Atividade 3, PRJ-0003: gerada automaticamente para testes', '2024-05-01', '2024-06-30', 'Cancelada', FALSE, 5445.00,
     (SELECT id FROM project WHERE code = 'PRJ-0003' LIMIT 1),
@@ -1252,7 +1252,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 1 de PRJ-0004', 'Atividade 1, PRJ-0004: gerada automaticamente para testes', '2024-01-01', '2024-02-29', 'Concluída', FALSE, 0.00,
     (SELECT id FROM project WHERE code = 'PRJ-0004' LIMIT 1),
@@ -1260,7 +1260,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 2 de PRJ-0004', 'Atividade 2, PRJ-0004: gerada automaticamente para testes', '2024-03-01', '2024-04-30', 'Cancelada', FALSE, 0.00,
     (SELECT id FROM project WHERE code = 'PRJ-0004' LIMIT 1),
@@ -1268,7 +1268,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 3 de PRJ-0004', 'Atividade 3, PRJ-0004: gerada automaticamente para testes', '2024-05-01', '2024-06-30', 'Cancelada', FALSE, 0.00,
     (SELECT id FROM project WHERE code = 'PRJ-0004' LIMIT 1),
@@ -1276,7 +1276,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 1 de PRJ-0005', 'Atividade 1, PRJ-0005: gerada automaticamente para testes', '2024-07-01', '2024-08-31', 'Concluída', FALSE, 9124.00,
     (SELECT id FROM project WHERE code = 'PRJ-0005' LIMIT 1),
@@ -1284,7 +1284,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 2 de PRJ-0005', 'Atividade 2, PRJ-0005: gerada automaticamente para testes', '2024-09-01', '2024-10-31', 'Concluída', FALSE, 3639.00,
     (SELECT id FROM project WHERE code = 'PRJ-0005' LIMIT 1),
@@ -1292,7 +1292,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 3 de PRJ-0005', 'Atividade 3, PRJ-0005: gerada automaticamente para testes', '2024-11-01', '2024-12-31', 'Concluída', FALSE, 4452.00,
     (SELECT id FROM project WHERE code = 'PRJ-0005' LIMIT 1),
@@ -1300,7 +1300,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 1 de PRJ-0006', 'Atividade 1, PRJ-0006: gerada automaticamente para testes', '2024-07-01', '2024-08-31', 'Concluída', FALSE, 6152.00,
     (SELECT id FROM project WHERE code = 'PRJ-0006' LIMIT 1),
@@ -1308,7 +1308,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 2 de PRJ-0006', 'Atividade 2, PRJ-0006: gerada automaticamente para testes', '2024-09-01', '2024-10-31', 'Em andamento', TRUE, 2828.00,
     (SELECT id FROM project WHERE code = 'PRJ-0006' LIMIT 1),
@@ -1316,7 +1316,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 3 de PRJ-0006', 'Atividade 3, PRJ-0006: gerada automaticamente para testes', '2024-11-01', '2024-12-31', 'Não iniciada', TRUE, 8346.00,
     (SELECT id FROM project WHERE code = 'PRJ-0006' LIMIT 1),
@@ -1324,7 +1324,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 1 de PRJ-0007', 'Atividade 1, PRJ-0007: gerada automaticamente para testes', '2025-01-01', '2025-02-28', 'Não iniciada', TRUE, 3343.00,
     (SELECT id FROM project WHERE code = 'PRJ-0007' LIMIT 1),
@@ -1332,7 +1332,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 2 de PRJ-0007', 'Atividade 2, PRJ-0007: gerada automaticamente para testes', '2025-03-01', '2025-04-30', 'Não iniciada', TRUE, 4829.00,
     (SELECT id FROM project WHERE code = 'PRJ-0007' LIMIT 1),
@@ -1340,7 +1340,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 3 de PRJ-0007', 'Atividade 3, PRJ-0007: gerada automaticamente para testes', '2025-05-01', '2025-06-30', 'Não iniciada', TRUE, 9379.00,
     (SELECT id FROM project WHERE code = 'PRJ-0007' LIMIT 1),
@@ -1348,7 +1348,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 1 de PRJ-0008', 'Atividade 1, PRJ-0008: gerada automaticamente para testes', '2025-01-01', '2025-02-28', 'Concluída', FALSE, 1999.00,
     (SELECT id FROM project WHERE code = 'PRJ-0008' LIMIT 1),
@@ -1356,7 +1356,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 2 de PRJ-0008', 'Atividade 2, PRJ-0008: gerada automaticamente para testes', '2025-03-01', '2025-04-30', 'Concluída', FALSE, 6719.00,
     (SELECT id FROM project WHERE code = 'PRJ-0008' LIMIT 1),
@@ -1364,7 +1364,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 3 de PRJ-0008', 'Atividade 3, PRJ-0008: gerada automaticamente para testes', '2025-05-01', '2025-06-30', 'Não iniciada', TRUE, 2150.00,
     (SELECT id FROM project WHERE code = 'PRJ-0008' LIMIT 1),
@@ -1372,7 +1372,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 1 de PRJ-0009', 'Atividade 1, PRJ-0009: gerada automaticamente para testes', '2025-07-01', '2025-08-31', 'Não iniciada', TRUE, 9435.00,
     (SELECT id FROM project WHERE code = 'PRJ-0009' LIMIT 1),
@@ -1380,7 +1380,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 2 de PRJ-0009', 'Atividade 2, PRJ-0009: gerada automaticamente para testes', '2025-09-01', '2025-10-31', 'Não iniciada', TRUE, 8048.00,
     (SELECT id FROM project WHERE code = 'PRJ-0009' LIMIT 1),
@@ -1388,7 +1388,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 3 de PRJ-0009', 'Atividade 3, PRJ-0009: gerada automaticamente para testes', '2025-11-01', '2025-12-31', 'Não iniciada', TRUE, 8196.00,
     (SELECT id FROM project WHERE code = 'PRJ-0009' LIMIT 1),
@@ -1396,7 +1396,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 1 de PRJ-0010', 'Atividade 1, PRJ-0010: gerada automaticamente para testes', '2025-07-01', '2025-08-31', 'Cancelada', FALSE, 0.00,
     (SELECT id FROM project WHERE code = 'PRJ-0010' LIMIT 1),
@@ -1404,7 +1404,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 2 de PRJ-0010', 'Atividade 2, PRJ-0010: gerada automaticamente para testes', '2025-09-01', '2025-10-31', 'Cancelada', FALSE, 0.00,
     (SELECT id FROM project WHERE code = 'PRJ-0010' LIMIT 1),
@@ -1412,7 +1412,7 @@ INSERT INTO activity (
 );
 
 INSERT INTO activity (
-    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by
+    id, name, description, start_date, end_date, status, is_active, allocated_budget, project_id, created_by_id
 ) VALUES (
     UUID(), 'Atividade 3 de PRJ-0010', 'Atividade 3, PRJ-0010: gerada automaticamente para testes', '2025-11-01', '2025-12-31', 'Cancelada', FALSE, 0.00,
     (SELECT id FROM project WHERE code = 'PRJ-0010' LIMIT 1),
