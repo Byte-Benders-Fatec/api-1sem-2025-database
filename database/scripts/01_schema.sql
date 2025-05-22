@@ -432,7 +432,7 @@ CREATE TABLE IF NOT EXISTS activity (
     deleted_at DATETIME DEFAULT NULL COMMENT 'Data de exclusão lógica da atividade',
 
     FOREIGN KEY (project_id) REFERENCES project(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (created_by) REFERENCES user(id) ON DELETE SET NULL
+    FOREIGN KEY (created_by_id) REFERENCES user(id) ON DELETE SET NULL
 ) COMMENT = 'Atividades planejadas dentro de projetos, com orçamento, status e responsáveis definidos ou abertos.';
 
 
