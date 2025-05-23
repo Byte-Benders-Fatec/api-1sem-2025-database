@@ -425,6 +425,7 @@ CREATE TABLE IF NOT EXISTS activity (
 	CHECK (end_date >= start_date),
     
     created_by_id CHAR(36) DEFAULT NULL COMMENT 'UUID do usuário responsável pela criação da atividade',
+    responsible_user_id CHAR(36) DEFAULT NULL COMMENT 'UUID do usuário responsável pela atividade',
     is_active BOOLEAN NOT NULL DEFAULT TRUE COMMENT 'Indica se a atividade está ativa no sistema',
 
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Data de criação da atividade',
@@ -432,7 +433,8 @@ CREATE TABLE IF NOT EXISTS activity (
     deleted_at DATETIME DEFAULT NULL COMMENT 'Data de exclusão lógica da atividade',
 
     FOREIGN KEY (project_id) REFERENCES project(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (created_by_id) REFERENCES user(id) ON DELETE SET NULL
+    FOREIGN KEY (created_by_id) REFERENCES user(id) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (responsible_user_id) REFERENCES user(id) ON DELETE SET NULL ON UPDATE CASCADE
 ) COMMENT = 'Atividades planejadas dentro de projetos, com orçamento, status e responsáveis definidos ou abertos.';
 
 
