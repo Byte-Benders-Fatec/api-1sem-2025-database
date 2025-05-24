@@ -479,6 +479,8 @@ CREATE TABLE IF NOT EXISTS task (
     cost DECIMAL(12,2) NOT NULL DEFAULT 0.00 COMMENT 'Custo monetário associado à tarefa (se aplicável)',
     CHECK (cost >= 0.00),
     
+    date DATE NOT NULL COMMENT 'Data de registro da tarefa',
+
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Data de criação da tarefa',
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Última modificação da tarefa',
     deleted_at DATETIME DEFAULT NULL COMMENT 'Data de exclusão lógica (soft delete)',

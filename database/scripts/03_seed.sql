@@ -1728,7 +1728,7 @@ VALUES (
 -- Tarefas realizadas por usuários responsáveis dentro das atividades atribuídas
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 1 de PRJ-0001' LIMIT 1),
@@ -1736,11 +1736,12 @@ INSERT INTO task (
     'Documentação',
     'Relatório de progresso entregue.',
     90,
-    189.64
+    189.64,
+    '2023-01-15'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 1 de PRJ-0001' LIMIT 1),
@@ -1748,11 +1749,12 @@ INSERT INTO task (
     'Reunião técnica',
     'Execução parcial com ajustes previstos.',
     120,
-    175.98
+    175.98,
+    '2023-02-15'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 2 de PRJ-0001' LIMIT 1),
@@ -1760,11 +1762,12 @@ INSERT INTO task (
     'Reunião técnica',
     'Atividade realizada conforme planejamento.',
     150,
-    215.16
+    215.16,
+    '2023-03-10'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 2 de PRJ-0001' LIMIT 1),
@@ -1772,11 +1775,12 @@ INSERT INTO task (
     'Análise preliminar',
     'Contribuição significativa para o andamento da atividade.',
     60,
-    181.77
+    181.77,
+    '2023-04-20'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 1 de PRJ-0002' LIMIT 1),
@@ -1784,11 +1788,12 @@ INSERT INTO task (
     'Análise preliminar',
     'Atividade realizada conforme planejamento.',
     60,
-    415.02
+    415.02,
+    '2023-07-05'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 1 de PRJ-0002' LIMIT 1),
@@ -1796,11 +1801,12 @@ INSERT INTO task (
     'Reunião técnica',
     'Relatório de progresso entregue.',
     90,
-    284.71
+    284.71,
+    '2023-08-10'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 3 de PRJ-0002' LIMIT 1),
@@ -1808,11 +1814,12 @@ INSERT INTO task (
     'Apresentação interna',
     'Tarefa concluída com sucesso.',
     120,
-    345.27
+    345.27,
+    '2023-11-15'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 3 de PRJ-0002' LIMIT 1),
@@ -1820,11 +1827,12 @@ INSERT INTO task (
     'Desenvolvimento inicial',
     'Alinhamento com equipe técnica.',
     150,
-    291.72
+    291.72,
+    '2023-12-25'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 2 de PRJ-0003' LIMIT 1),
@@ -1832,11 +1840,12 @@ INSERT INTO task (
     'Apresentação interna',
     'Execução parcial com ajustes previstos.',
     180,
-    123.5
+    123.5,
+    '2024-03-15'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 2 de PRJ-0003' LIMIT 1),
@@ -1844,11 +1853,12 @@ INSERT INTO task (
     'Documentação',
     'Relatório de progresso entregue.',
     120,
-    295.76
+    295.76,
+    '2024-04-30'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 3 de PRJ-0003' LIMIT 1),
@@ -1856,11 +1866,12 @@ INSERT INTO task (
     'Análise preliminar',
     'Relatório de progresso entregue.',
     60,
-    391.37
+    391.37,
+    '2024-06-20'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 3 de PRJ-0003' LIMIT 1),
@@ -1868,11 +1879,12 @@ INSERT INTO task (
     'Análise preliminar',
     'Alinhamento com equipe técnica.',
     180,
-    471.46
+    471.46,
+    '2024-05-20'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 1 de PRJ-0004' LIMIT 1),
@@ -1880,11 +1892,12 @@ INSERT INTO task (
     'Coleta de dados',
     'Atividade realizada conforme planejamento.',
     150,
-    350.58
+    350.58,
+    '2024-01-05'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 1 de PRJ-0004' LIMIT 1),
@@ -1892,11 +1905,12 @@ INSERT INTO task (
     'Apresentação interna',
     'Contribuição significativa para o andamento da atividade.',
     90,
-    196.89
+    196.89,
+    '2024-02-10'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 3 de PRJ-0004' LIMIT 1),
@@ -1904,11 +1918,12 @@ INSERT INTO task (
     'Documentação',
     'Alinhamento com equipe técnica.',
     120,
-    290.63
+    290.63,
+    '2024-05-15'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 3 de PRJ-0004' LIMIT 1),
@@ -1916,11 +1931,12 @@ INSERT INTO task (
     'Apresentação interna',
     'Relatório de progresso entregue.',
     150,
-    322.52
+    322.52,
+    '2024-06-20'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 1 de PRJ-0005' LIMIT 1),
@@ -1928,11 +1944,12 @@ INSERT INTO task (
     'Apresentação interna',
     'Contribuição significativa para o andamento da atividade.',
     150,
-    372.53
+    372.53,
+    '2024-07-25'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 1 de PRJ-0005' LIMIT 1),
@@ -1940,11 +1957,12 @@ INSERT INTO task (
     'Apresentação interna',
     'Contribuição significativa para o andamento da atividade.',
     120,
-    487.06
+    487.06,
+    '2024-08-15'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 2 de PRJ-0005' LIMIT 1),
@@ -1952,11 +1970,12 @@ INSERT INTO task (
     'Análise preliminar',
     'Contribuição significativa para o andamento da atividade.',
     60,
-    239.49
+    239.49,
+    '2024-09-10'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 2 de PRJ-0005' LIMIT 1),
@@ -1964,11 +1983,12 @@ INSERT INTO task (
     'Coleta de dados',
     'Alinhamento com equipe técnica.',
     150,
-    382.16
+    382.16,
+    '2024-10-10'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 2 de PRJ-0006' LIMIT 1),
@@ -1976,11 +1996,12 @@ INSERT INTO task (
     'Reunião técnica',
     'Atividade realizada conforme planejamento.',
     180,
-    124.98
+    124.98,
+    '2024-09-08'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 2 de PRJ-0006' LIMIT 1),
@@ -1988,11 +2009,12 @@ INSERT INTO task (
     'Apresentação interna',
     'Relatório de progresso entregue.',
     180,
-    216.12
+    216.12,
+    '2024-10-16'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 3 de PRJ-0006' LIMIT 1),
@@ -2000,11 +2022,12 @@ INSERT INTO task (
     'Documentação',
     'Execução parcial com ajustes previstos.',
     180,
-    118.43
+    118.43,
+    '2024-11-09'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 3 de PRJ-0006' LIMIT 1),
@@ -2012,11 +2035,12 @@ INSERT INTO task (
     'Coleta de dados',
     'Atividade realizada conforme planejamento.',
     180,
-    352.47
+    352.47,
+    '2024-12-18'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 1 de PRJ-0007' LIMIT 1),
@@ -2024,11 +2048,12 @@ INSERT INTO task (
     'Coleta de dados',
     'Contribuição significativa para o andamento da atividade.',
     60,
-    496.78
+    496.78,
+    '2025-01-12'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 1 de PRJ-0007' LIMIT 1),
@@ -2036,11 +2061,12 @@ INSERT INTO task (
     'Documentação',
     'Atividade realizada conforme planejamento.',
     60,
-    223.03
+    223.03,
+    '2025-02-24'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 2 de PRJ-0007' LIMIT 1),
@@ -2048,11 +2074,12 @@ INSERT INTO task (
     'Documentação',
     'Alinhamento com equipe técnica.',
     60,
-    194.76
+    194.76,
+    '2025-03-13'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 2 de PRJ-0007' LIMIT 1),
@@ -2060,11 +2087,12 @@ INSERT INTO task (
     'Documentação',
     'Atividade realizada conforme planejamento.',
     150,
-    443.31
+    443.31,
+    '2025-04-26'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 1 de PRJ-0008' LIMIT 1),
@@ -2072,11 +2100,12 @@ INSERT INTO task (
     'Desenvolvimento inicial',
     'Atividade realizada conforme planejamento.',
     180,
-    353.19
+    353.19,
+    '2025-01-10'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 1 de PRJ-0008' LIMIT 1),
@@ -2084,11 +2113,12 @@ INSERT INTO task (
     'Apresentação interna',
     'Tarefa concluída com sucesso.',
     150,
-    447.59
+    447.59,
+    '2025-02-20'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 3 de PRJ-0008' LIMIT 1),
@@ -2096,11 +2126,12 @@ INSERT INTO task (
     'Desenvolvimento inicial',
     'Tarefa concluída com sucesso.',
     120,
-    230.84
+    230.84,
+    '2025-05-05'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 3 de PRJ-0008' LIMIT 1),
@@ -2108,11 +2139,12 @@ INSERT INTO task (
     'Apresentação interna',
     'Relatório de progresso entregue.',
     180,
-    419.06
+    419.06,
+    '2025-06-05'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 1 de PRJ-0009' LIMIT 1),
@@ -2120,11 +2152,12 @@ INSERT INTO task (
     'Documentação',
     'Execução parcial com ajustes previstos.',
     90,
-    341.19
+    341.19,
+    '2025-08-15'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 2 de PRJ-0009' LIMIT 1),
@@ -2132,11 +2165,12 @@ INSERT INTO task (
     'Apresentação interna',
     'Execução parcial com ajustes previstos.',
     60,
-    311.08
+    311.08,
+    '2025-10-20'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 3 de PRJ-0009' LIMIT 1),
@@ -2144,11 +2178,12 @@ INSERT INTO task (
     'Coleta de dados',
     'Contribuição significativa para o andamento da atividade.',
     60,
-    160.4
+    160.4,
+    '2025-11-25'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 3 de PRJ-0009' LIMIT 1),
@@ -2156,11 +2191,12 @@ INSERT INTO task (
     'Apresentação interna',
     'Relatório de progresso entregue.',
     120,
-    243.98
+    243.98,
+    '2025-12-25'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 1 de PRJ-0010' LIMIT 1),
@@ -2168,11 +2204,12 @@ INSERT INTO task (
     'Coleta de dados',
     'Tarefa concluída com sucesso.',
     120,
-    137.42
+    137.42,
+    '2025-07-05'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 1 de PRJ-0010' LIMIT 1),
@@ -2180,11 +2217,12 @@ INSERT INTO task (
     'Análise preliminar',
     'Execução parcial com ajustes previstos.',
     60,
-    219.84
+    219.84,
+    '2025-08-25'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 2 de PRJ-0010' LIMIT 1),
@@ -2192,11 +2230,12 @@ INSERT INTO task (
     'Análise preliminar',
     'Contribuição significativa para o andamento da atividade.',
     120,
-    346.24
+    346.24,
+    '2025-09-06'
 );
 
 INSERT INTO task (
-    id, activity_id, user_id, title, description, time_spent_minutes, cost
+    id, activity_id, user_id, title, description, time_spent_minutes, cost, date
 ) VALUES (
     UUID(),
     (SELECT id FROM activity WHERE name = 'Atividade 2 de PRJ-0010' LIMIT 1),
@@ -2204,7 +2243,8 @@ INSERT INTO task (
     'Documentação',
     'Relatório de progresso entregue.',
     180,
-    333.87
+    333.87,
+    '2025-10-12'
 );
 
 
